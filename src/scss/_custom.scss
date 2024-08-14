@@ -1,0 +1,82 @@
+// Here you can add other styles
+
+:root {
+  --color-gray-light: #e6e6e6;
+  --color-gray-extra-light: #f3f3f3;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+.btn.btn-danger {
+  color: #fff;
+}
+
+table thead tr th {
+  background-color: var(--color-gray-light) !important;
+}
+
+img {
+  max-width: 100%;
+}
+
+.sidebar.sidebar-narrow-unfoldable.hide + .wrapper {
+  padding-left: 0;
+}
+
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-header, .sidebar-narrow .sidebar-header {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.page-item .page-link {
+  background-color: #e6e6e6;
+  border-color: #ddd;
+  line-height: 1;
+  padding: 5px 10px;
+}
+
+.page-item .page-link span {
+  font-size: 24px;
+}
+
+.page-item.active .page-link {
+  background-color: #5856d6;
+}
+
+.page-item a.page-link,
+.page-item.active .page-link {
+  height: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading-and-search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.heading-and-search-form h2 {
+  max-width: calc(100% - 340px);
+  margin-bottom: 0;
+  word-break: break-all;
+}
+
+.main-link {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
