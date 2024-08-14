@@ -2,10 +2,6 @@ import React from 'react'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
 
 const DefaultLayout = () => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  if (isLoggedIn !== "true" && window.location.href !== "http://localhost:3000/login#/forgot-password") {
-    window.location.href = "http://localhost:3000/login#/login"
-  }
   return (
     <div>
       <AppSidebar />

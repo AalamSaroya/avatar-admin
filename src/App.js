@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { CSpinner, useColorModes } from '@coreui/react'
@@ -16,9 +16,6 @@ const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const ForgotPassword = React.lazy(() => import('./views/pages/forgot_password/ForgotPassword'))
 
 const App = () => {
-  // localStorage.setItem("isLoggedIn", "false");
-  localStorage.setItem("username", "appwork1234")
-  localStorage.setItem("password", "123456789")
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
   const storedTheme = useSelector((state) => state.theme)
 
@@ -37,7 +34,7 @@ const App = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Suspense
         fallback={
           <div className="pt-3 text-center main-loader d-flex align-items-center justify-content-center" style={{ height: "100svh" }}>
@@ -54,7 +51,7 @@ const App = () => {
           <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>
       </Suspense>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 

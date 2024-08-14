@@ -24,6 +24,8 @@ import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
 
+import { Link } from "react-router-dom"
+
 const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
@@ -61,10 +63,10 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
-        <CDropdownItem href="#">
+        <Link className="dropdown-item" to="/profile">
           <CIcon icon={cilUser} className="me-2" />
           Profile
-        </CDropdownItem>
+        </Link>
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
           Settings

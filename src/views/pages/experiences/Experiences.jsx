@@ -8,6 +8,7 @@ import fetchExperiences, {
 import Loader from '../../../components/loader/Loader'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon.jsx'
 import FormSearch from '../../../components/form_search/FormSearch.jsx'
+import DefaultLayout from '../../../layout/DefaultLayout.js'
 
 const Experiences = () => {
   const [experiences, setExperiences] = useState([])

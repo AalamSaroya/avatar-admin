@@ -6,6 +6,7 @@ import fetchUsers, { deleteUserById } from '../../../utils/services/userServices
 import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon'
+import DefaultLayout from '../../../layout/DefaultLayout'
 
 const Users = () => {
   const [users, setUsers] = useState([])

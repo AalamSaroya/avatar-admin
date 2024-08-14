@@ -10,6 +10,7 @@ import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon'
 import LocateAvatars from '../../../components/locate_avatars/LocateAvatars'
+import DefaultLayout from '../../../layout/DefaultLayout'
 
 const Avatars = () => {
   const [avatars, setAvatars] = useState([])
