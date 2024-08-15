@@ -13,7 +13,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Dashboard',
-    to: '/dashboard',
+    to: '/admin/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
       color: 'info',
@@ -23,31 +23,31 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Users',
-    to: '/users',
+    to: '/admin/users',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Avatars',
-    to: '/avatars',
+    to: '/admin/avatars',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Experiences',
-    to: '/experiences',
+    to: '/admin/experiences',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Requests',
-    to: '/requests',
+    to: '/admin/requests',
     icon: <CIcon icon={cilUserPlus} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Logout',
-    to: '/login',
+    to: '/admin/login',
     icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
     onClick: () => {
       console.log("User Logged out.");

@@ -1,21 +1,26 @@
-import React, { Suspense, useEffect } from 'react'
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { createBrowserRouter } from "react-router-dom"
+import { RouterProvider } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 
-import { CSpinner, useColorModes } from '@coreui/react'
+import { useColorModes } from '@coreui/react'
 import './scss/style.scss'
+import DefaultDashboardLayout from "./components/default_dashboard_layout/DefaultDashboardLayout"
+import Dashboard from "./views/dashboard/Dashboard"
+import Users from "./views/pages/users/Users"
+import UserDetails from "./views/pages/user_details/UserDetails"
+import Avatars from "./views/pages/avatars/Avatars"
+import AvatarDetails from "./views/pages/avatar_details/AvatarDetails"
+import Experiences from "./views/pages/experiences/Experiences"
+import ExperienceDetails from "./views/pages/experience_details/ExperienceDetails"
+import Requests from "./views/pages/requests/Requests"
+import Profile from "./views/pages/profile/Profile"
+import Login from "./views/pages/login/Login"
+import ForgotPassword from "./views/pages/forgot_password/ForgotPassword"
+import Page404 from "./views/pages/page404/Page404"
 
-// Containers
-const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
-
-// Pages
-const Login = React.lazy(() => import('./views/pages/login/Login'))
-const Register = React.lazy(() => import('./views/pages/register/Register'))
-const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
-const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
-const ForgotPassword = React.lazy(() => import('./views/pages/forgot_password/ForgotPassword'))
-
-const App = () => {
+const App = ({ children }) => {
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
   const storedTheme = useSelector((state) => state.theme)
 
@@ -31,27 +36,68 @@ const App = () => {
     }
 
     setColorMode(storedTheme)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [])
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <DefaultDashboardLayout />,
+      errorElement: <Page404 />,
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="/admin/dashboard" replace />,
+        },
+        {
+          path: "/admin/dashboard",
+          element: <Dashboard />,
+        },
+        {
+          path: "/admin/users",
+          element: <Users />
+        },
+        {
+          path: "/admin/users/:userId",
+          element: <UserDetails />
+        },
+        {
+          path: "/admin/avatars",
+          element: <Avatars />
+        },
+        {
+          path: "/admin/avatars/:avatarId",
+          element: <AvatarDetails />
+        },
+        {
+          path: "/admin/experiences",
+          element: <Experiences />
+        },
+        {
+          path: "/admin/experiences/:experienceId",
+          element: <ExperienceDetails />
+        },
+        {
+          path: "/admin/requests",
+          element: <Requests />
+        },
+        {
+          path: "/admin/profile",
+          element: <Profile />
+        },
+      ]
+    },
+    {
+      path: "/admin/login",
+      element: <Login />
+    },
+    {
+      path: "/admin/forgot-password",
+      element: <ForgotPassword />
+    },
+  ])
 
   return (
-    <BrowserRouter>
-      <Suspense
-        fallback={
-          <div className="pt-3 text-center main-loader d-flex align-items-center justify-content-center" style={{ height: "100svh" }}>
-            <CSpinner color="primary" variant="grow" />
-          </div>
-        }
-      >
-        <Routes>
-          <Route exact path="/login" name="Login Page" element={<Login />} />
-          <Route exact path="/register" name="Register Page" element={<Register />} />
-          <Route exact path="/404" name="Page 404" element={<Page404 />} />
-          <Route exact path="/500" name="Page 500" element={<Page500 />} />
-          <Route exact path="/forgot-password" name="Forgot Password" element={<ForgotPassword />} />
-          <Route path="*" name="Home" element={<DefaultLayout />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <RouterProvider router={router}>{children}</RouterProvider>
   )
 }
 

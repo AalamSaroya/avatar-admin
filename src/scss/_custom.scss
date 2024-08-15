@@ -3,6 +3,15 @@
 :root {
   --color-gray-light: #e6e6e6;
   --color-gray-extra-light: #f3f3f3;
+  --color-custom-dark: rgba(37, 43, 54, 0.95);
+  --color-custom-light: #ffffff;
+  --color-custom-border: #dbdfe6;
+}
+
+[data-coreui-theme="dark"] {
+  --color-custom-dark: #ffffff;
+  --color-custom-light: rgba(37, 43, 54, 0.95);
+  --color-custom-border: #323a49;
 }
 
 body {
@@ -11,7 +20,7 @@ body {
 }
 
 .btn.btn-danger {
-  color: #fff;
+  color: #ffffff;
 }
 
 table thead tr th {
@@ -33,7 +42,7 @@ img {
 
 .page-item .page-link {
   background-color: #e6e6e6;
-  border-color: #ddd;
+  border-color: var(--color-custom-border);
   line-height: 1;
   padding: 5px 10px;
 }
@@ -98,4 +107,31 @@ form p.error {
 
 .sidebar-brand-narrow {
   font-size: 24px;
+}
+
+.box {
+  background-color: var(--color-custom-light);
+  border: 1px solid var(--color-custom-border);
+  padding: 15px;
+}
+
+table.table.table-bordered.table-hover th {
+  background-color: var(--color-custom-border)!important;
+}
+
+.page-item .page-link {
+  background-color: var(--color-custom-border)
+}
+
+.rating-stars {
+  gap: 2px;
+}
+
+.rating-stars svg {
+  color: #ffa534;
+}
+
+.erro-404 {
+  max-width: 300px;
+  margin: 0 auto;
 }

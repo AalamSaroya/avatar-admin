@@ -51,6 +51,7 @@
     "react-router-dom": "^6.23.1",
     "redux": "5.0.1",
     "simplebar-react": "^3.2.5",
+    "swiper": "^11.1.9",
     "yup": "^1.4.0"
   },
   "devDependencies": {

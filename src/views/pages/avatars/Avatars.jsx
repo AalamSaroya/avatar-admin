@@ -22,7 +22,7 @@ const Avatars = () => {
   const [currentPage, setCurrentPage] = useState(
     parseInt(sessionStorage.getItem('currentPage')) || 1,
   )
-  const avatarsPerPage = 10
+  const [avatarsPerPage, setAvatarsPerPage] = useState(10)
 
   // GET AVATARS
   const getAvatars = async () => {
@@ -41,7 +41,7 @@ const Avatars = () => {
   // NAVIGATE TO AVATAR DETAIL PAGE
   const navigate = useNavigate()
   const handleViewAvatar = (id) => {
-    navigate(`/avatars/${id}`)
+    navigate(`/admin/avatars/${id}`)
   }
 
   // EDIT AVATAR
@@ -99,6 +99,10 @@ const Avatars = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
     sessionStorage.setItem('currentPage', pageNumber)
+  }
+  const handleAvatarsPerPage = (usersCount) => {
+    setAvatarsPerPage(usersCount)
+    setCurrentPage(1)
   }
 
   // HANDLE SEARCH FORM SUBMISSION
@@ -164,6 +168,7 @@ const Avatars = () => {
             currentPage={currentPage}
             totalPages={Math.ceil(filteredAvatars.length / avatarsPerPage)}
             handlePageChange={handlePageChange}
+            handleRowsCount={handleAvatarsPerPage}
           />
         </>
       )}

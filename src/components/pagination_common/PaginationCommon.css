@@ -1,0 +1,14 @@
+.pagination-container select {
+  width: 100px;
+}
+
+.pagination-container .pagination {
+  margin-bottom: 0;
+}
+
+.pagination .page-link {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

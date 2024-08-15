@@ -18,7 +18,7 @@ const Experiences = () => {
   const [currentPage, setCurrentPage] = useState(
     parseInt(sessionStorage.getItem('currentPage')) || 1,
   )
-  const [experiencesPerPage] = useState(10)
+  const [experiencesPerPage, setExperiencesPerPage] = useState(10)
 
   const navigate = useNavigate()
 
@@ -39,7 +39,7 @@ const Experiences = () => {
   // NAVIGATE TO EXPERIENCE DETAIL PAGE
   const handleExperienceView = (id) => {
     sessionStorage.setItem('currentPage', currentPage) // Store the current page before navigating
-    navigate(`/experiences/${id}`)
+    navigate(`/admin/experiences/${id}`)
   }
 
   // DELETE EXPERIENCE
@@ -73,6 +73,11 @@ const Experiences = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
     sessionStorage.setItem('currentPage', pageNumber)
+  }
+
+  const handleExperiencesPerPage = (usersCount) => {
+    setExperiencesPerPage(usersCount)
+    setCurrentPage(1)
   }
 
   // HANDLE SEARCH FORM SUBMISSION
@@ -140,6 +145,7 @@ const Experiences = () => {
             currentPage={currentPage}
             totalPages={Math.ceil(filteredExperiences.length / experiencesPerPage)}
             handlePageChange={handlePageChange}
+            handleRowsCount={handleExperiencesPerPage}
           />
         </>
       )}

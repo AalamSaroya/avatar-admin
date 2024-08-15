@@ -1,0 +1,8 @@
+.experience-details table {
+  table-layout: fixed;
+}
+
+.experience-details table.table.table-hover th,
+.experience-details table.table.table-hover td {
+  background-color: var(--color-custom-light) !important;
+}

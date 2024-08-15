@@ -51,7 +51,7 @@ const Login = () => {
                       <Button variant="primary" type="submit">
                         Submit
                       </Button>
-                      <Link to="/forgot-password" className="main-link">Forgot Password?</Link>
+                      <Link to="/admin/forgot-password" className="main-link">Forgot Password?</Link>
                     </div>
                   </Form>
                 </CCardBody>

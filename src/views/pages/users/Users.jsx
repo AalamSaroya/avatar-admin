@@ -6,7 +6,6 @@ import fetchUsers, { deleteUserById } from '../../../utils/services/userServices
 import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon'
-import DefaultLayout from '../../../layout/DefaultLayout'
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -16,7 +15,7 @@ const Users = () => {
   const [currentPage, setCurrentPage] = useState(
     parseInt(sessionStorage.getItem('currentPage')) || 1,
   )
-  const [usersPerPage] = useState(10)
+  const [usersPerPage, setUsersPerPage] = useState(10)
 
   const navigate = useNavigate()
 
@@ -36,7 +35,7 @@ const Users = () => {
 
   // NAVIGATE TO USER DETAIL PAGE
   const handleUserView = (id) => {
-    navigate(`/users/${id}`)
+    navigate(`/admin/users/${id}`)
   }
 
   // DELETE USER
@@ -67,6 +66,11 @@ const Users = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
     sessionStorage.setItem('currentPage', pageNumber)
+  }
+
+  const handleUsersPerPage = (usersCount) => {
+    setUsersPerPage(usersCount)
+    setCurrentPage(1)
   }
 
   // Handle search form submission
@@ -129,6 +133,7 @@ const Users = () => {
             currentPage={currentPage}
             totalPages={Math.ceil(filteredUsers.length / usersPerPage)}
             handlePageChange={handlePageChange}
+            handleRowsCount={handleUsersPerPage}
           />
         </>
       )}
