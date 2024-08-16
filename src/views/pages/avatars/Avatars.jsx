@@ -2,10 +2,6 @@ import './Avatars.css'
 import React, { useEffect, useState, useRef } from 'react'
 import { Button, Alert, Modal, Table, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import fetchAvatars, {
-  deleteAvatarById,
-  editAvatarById,
-} from '../../../utils/services/avatarServices'
 import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon'
@@ -24,20 +20,6 @@ const Avatars = () => {
   )
   const [avatarsPerPage, setAvatarsPerPage] = useState(10)
 
-  // GET AVATARS
-  const getAvatars = async () => {
-    setLoading(true)
-    try {
-      const response = await fetchAvatars()
-      setAvatars(response)
-    } catch (error) {
-      setApiError(`Error getting avatars: ${error}.`)
-      console.error(`Error getting avatars: ${error}.`)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   // NAVIGATE TO AVATAR DETAIL PAGE
   const navigate = useNavigate()
   const handleViewAvatar = (id) => {
@@ -54,22 +36,6 @@ const Avatars = () => {
 
   const nameRef = useRef()
   const emailRef = useRef()
-  const handleEditAvatarFormSubmit = async (e) => {
-    e.preventDefault()
-    const name = nameRef.current.value
-    const email = emailRef.current.value
-    if (!name || !email) {
-      alert('Fields can not be empty.')
-    } else {
-      try {
-        await editAvatarById(editAvatar.id, { ...editAvatar, name, email })
-        getAvatars()
-      } catch (error) {
-        console.error(`Error editing avatar: ${error}.`)
-      }
-      handleEditAvatarModalClose()
-    }
-  }
 
   // DELETE AVATAR
   const handleDeleteAvatar = async (id) => {
@@ -111,30 +77,6 @@ const Avatars = () => {
     setCurrentPage(1)
   }
 
-  // RENDER AVATARS
-  const renderedAvatars = currentAvatars.map((avatar) => (
-    <tr key={avatar.id}>
-      <td>{avatar.id}</td>
-      <td>{avatar.name}</td>
-      <td>{avatar.email}</td>
-      <td className="actions">
-        <Button variant="primary" size="sm" onClick={() => handleViewAvatar(avatar.id)}>
-          View
-        </Button>
-        <Button variant="secondary" size="sm" onClick={() => handleEditAvatar(avatar)}>
-          Edit
-        </Button>
-        <Button variant="danger" size="sm" onClick={() => handleDeleteAvatar(avatar.id)}>
-          Delete
-        </Button>
-      </td>
-    </tr>
-  ))
-
-  useEffect(() => {
-    getAvatars()
-  }, [])
-
   return (
     <>
       <LocateAvatars />
@@ -163,7 +105,25 @@ const Avatars = () => {
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>{renderedAvatars}</tbody>
+              <tbody>
+                {' '}
+                <tr>
+                  <td>3432</td>
+                  <td>fsdfsdf</td>
+                  <td>dsfsdfsdfsd</td>
+                  <td className="actions">
+                    <Button variant="primary" size="sm">
+                      View
+                    </Button>
+                    <Button variant="secondary" size="sm">
+                      Edit
+                    </Button>
+                    <Button variant="danger" size="sm">
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
             </Table>
           </div>
           <PaginationCommon

@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axiosInstance from "../axiosInstance/axiosInstance";
+import toast from "react-hot-toast";
 
 // FETCH AVATARS
 const fetchAvatars = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/avatars')
+    const response = await axiosInstance.get(`/getallavatar?items_per_page=10&pg=1`)
     return response.data
   } catch (error) {
     console.error(`Error getting Avatars: ${error}.`)
@@ -14,7 +15,7 @@ const fetchAvatars = async () => {
 // FETCH AVATAR BY ID
 const fetchAvatarById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8000/avatars/${id}`)
+    const response = await axiosInstance.get(`/avatar/${id}`)
     return response.data
   } catch (error) {
     console.error(`Error getting avatar: ${error}.`)
@@ -25,7 +26,7 @@ const fetchAvatarById = async (id) => {
 // DELETE AVATAR BY ID
 const deleteAvatarById = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/avatars/${id}`)
+    const response = await axiosInstance.delete(`/avatar-delete/${id}`)
     return response.data
   } catch (error) {
     console.error(`Error deleting user: ${error}.`)
@@ -33,27 +34,9 @@ const deleteAvatarById = async (id) => {
   }
 }
 
-// EDIT AVATAR BY ID
-const editAvatarById = async (id, avatar) => {
-  try {
-    const response = await axios.put(`http://localhost:8000/avatars/${id}`, avatar)
-    return response.data
-  } catch (error) {
-    console.error(`Error editing avatar: ${error}.`)
-    throw new Error(`Error editing avatar: ${error}.`)
-  }
-}
 
-// ADD AVATAR
-const addAvatar = async (avatar) => {
-  try {
-    const response = await axios.post('http://localhost:8000/avatars', avatar)
-    return response.data
-  } catch (error) {
-    console.error(`Error adding avatar: ${error}.`)
-    throw new Error(`Error adding avatar: ${error}.`)
-  }
-}
+
+
 
 export default fetchAvatars
-export { fetchAvatarById, deleteAvatarById, editAvatarById, addAvatar }
+export { fetchAvatarById, deleteAvatarById }

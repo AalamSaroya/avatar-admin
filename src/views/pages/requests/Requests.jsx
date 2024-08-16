@@ -1,17 +1,9 @@
 import './Request.css'
 import Button from 'react-bootstrap/Button'
-import { addAvatar } from '../../../utils/services/avatarServices'
 
 const Requests = () => {
   // ADD AVATAR
-  const handleAddAvatar = async (avatar) => {
-    try {
-      await addAvatar(avatar)
-    } catch (error) {
-      console.error(`Error adding avatar: ${error}.`)
-      throw new Error(`Error adding avatar: ${error}.`)
-    }
-  }
+
   return (
     <section className="requests">
       <h2>Avatar Requests</h2>
@@ -27,9 +19,7 @@ const Requests = () => {
             <Button
               variant="success"
               size="sm"
-              onClick={() =>
-                handleAddAvatar({ name: 'john wick', email: 'johnwick9895@gmail.com' })
-              }
+             
             >
               Accept
             </Button>

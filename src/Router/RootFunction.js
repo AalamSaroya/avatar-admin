@@ -1,18 +1,29 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { getLocalStorage } from "../utils/LocalStorageUtils";
 
- const RootFunction = () => {
+const RootFunction = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const isAuthenticated = getLocalStorage("token");
+
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/admin/login");
+    // Only perform the redirect when the user is at the root `/admin` path
+    if (location.pathname === "/admin") {
+      if (isAuthenticated) {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate("/admin/login", { replace: true });
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, location.pathname]);
+
+  // Render nested routes for other paths
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 };
 
-
-export default RootFunction
+export default RootFunction;

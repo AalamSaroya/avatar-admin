@@ -2,7 +2,7 @@ import './Users.css'
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import fetchUsers, { deleteUserById } from '../../../utils/services/userServices'
+
 import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon'
@@ -19,39 +19,9 @@ const Users = () => {
 
   const navigate = useNavigate()
 
-  // GET USERS
-  const getUsers = async () => {
-    setLoading(true)
-    try {
-      const response = await fetchUsers()
-      setUsers(response)
-    } catch (error) {
-      setApiError(`Error getting users: ${error}.`)
-      console.error(`Error getting users: ${error}.`)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   // NAVIGATE TO USER DETAIL PAGE
   const handleUserView = (id) => {
     navigate(`/admin/users/${id}`)
-  }
-
-  // DELETE USER
-  const handleUserDelete = async (id) => {
-    const confirmUserDelete = window.confirm(
-      'Are you sure you want to permanently delete this user?',
-    )
-    if (!confirmUserDelete) {
-      return
-    }
-    try {
-      await deleteUserById(id)
-      getUsers()
-    } catch (error) {
-      console.error(`Error deleting user: ${error}.`)
-    }
   }
 
   // PAGINATION
@@ -79,28 +49,6 @@ const Users = () => {
     setCurrentPage(1)
   }
 
-  // RENDER USERS
-  const renderedUsers = currentUsers?.map((user) => {
-    return (
-      <tr key={user.id}>
-        <td>{user.id}</td>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td className="actions">
-          <Button variant="primary" size="sm" onClick={() => handleUserView(user.id)}>
-            View
-          </Button>
-          <Button variant="danger" size="sm" onClick={() => handleUserDelete(user.id)}>
-            Delete
-          </Button>
-        </td>
-      </tr>
-    )
-  })
-
-  useEffect(() => {
-    getUsers()
-  }, [])
   return (
     <>
       <div className="heading-and-search-form">
@@ -116,29 +64,44 @@ const Users = () => {
       {!loading && renderedUsers?.length === 0 && !apiError && (
         <Alert variant="warning">No Users Found!</Alert>
       )}
-      {!loading && renderedUsers?.length > 0 && (
-        <>
-          <div className="table-container">
-            <Table bordered hover>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>{renderedUsers}</tbody>
-            </Table>
-          </div>
-          <PaginationCommon
-            currentPage={currentPage}
-            totalPages={Math.ceil(filteredUsers.length / usersPerPage)}
-            handlePageChange={handlePageChange}
-            handleRowsCount={handleUsersPerPage}
-          />
-        </>
-      )}
+
+      <>
+        <div className="table-container">
+          <Table bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {' '}
+              <tr>
+                <td>ds</td>
+                <td>asd</td>
+                <td>dsa</td>
+                <td className="actions">
+                  <Button variant="primary" size="sm">
+                    View
+                  </Button>
+                  <Button variant="danger" size="sm">
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+        <PaginationCommon
+          currentPage={currentPage}
+          totalPages={Math.ceil(filteredUsers.length / usersPerPage)}
+          handlePageChange={handlePageChange}
+          handleRowsCount={handleUsersPerPage}
+        />
+      </>
+
       {loading && <Loader />}
     </>
   )

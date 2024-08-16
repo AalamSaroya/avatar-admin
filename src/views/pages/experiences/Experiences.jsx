@@ -2,9 +2,7 @@ import './Experiences.css'
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Alert, Pagination } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import fetchExperiences, {
-  deleteExperienceById,
-} from '../../../utils/services/experienceServices.jsx'
+
 import Loader from '../../../components/loader/Loader'
 import PaginationCommon from '../../../components/pagination_common/PaginationCommon.jsx'
 import FormSearch from '../../../components/form_search/FormSearch.jsx'
@@ -22,40 +20,10 @@ const Experiences = () => {
 
   const navigate = useNavigate()
 
-  // GET EXPERIENCES
-  const getExperiences = async () => {
-    setLoading(true)
-    try {
-      const response = await fetchExperiences()
-      setExperiences(response)
-    } catch (error) {
-      setApiError(`Error getting experiences: ${error}.`)
-      console.error(`Error getting experiences: ${error}.`)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   // NAVIGATE TO EXPERIENCE DETAIL PAGE
   const handleExperienceView = (id) => {
     sessionStorage.setItem('currentPage', currentPage) // Store the current page before navigating
     navigate(`/admin/experiences/${id}`)
-  }
-
-  // DELETE EXPERIENCE
-  const handleExperienceDelete = async (id) => {
-    const confirmExperienceDelete = window.confirm(
-      'Are you sure you want to permanently delete this experience?',
-    )
-    if (!confirmExperienceDelete) {
-      return
-    }
-    try {
-      await deleteExperienceById(id)
-      getExperiences()
-    } catch (error) {
-      console.error(`Error deleting experience: ${error}.`)
-    }
   }
 
   // PAGINATION
@@ -86,31 +54,6 @@ const Experiences = () => {
     setCurrentPage(1)
   }
 
-  // RENDER EXPERIENCES
-  const renderedExperiences = currentExperiences?.map((experience) => {
-    return (
-      <tr key={experience.id}>
-        <td>{experience.id}</td>
-        <td>{experience.name}</td>
-        <td>{experience.createdBy}</td>
-        <td>{experience.totalBookings}</td>
-        <td>{experience.price}</td>
-        <td className="actions">
-          <Button variant="primary" size="sm" onClick={() => handleExperienceView(experience.id)}>
-            View
-          </Button>
-          <Button variant="danger" size="sm" onClick={() => handleExperienceDelete(experience.id)}>
-            Delete
-          </Button>
-        </td>
-      </tr>
-    )
-  })
-
-  useEffect(() => {
-    getExperiences()
-  }, [])
-
   return (
     <>
       <div className="heading-and-search-form">
@@ -140,7 +83,23 @@ const Experiences = () => {
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>{renderedExperiences}</tbody>
+              <tbody>
+                <tr>
+                  <td>sdsd</td>
+                  <td>dsada</td>
+                  <td>dsa</td>
+                  <td>dsadas</td>
+                  <td>dasdas</td>
+                  <td className="actions">
+                    <Button variant="primary" size="sm">
+                      View
+                    </Button>
+                    <Button variant="danger" size="sm">
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
             </Table>
           </div>
           <PaginationCommon

@@ -24,7 +24,7 @@ const UserDetails = () => {
   return (
     <>
       <div className="user-details">
-        <h1>{user?.name}</h1>
+        <h1>dsadas</h1>
         {/* <p>{user?.email}</p> */}
       </div>
       <div className="user-details box">

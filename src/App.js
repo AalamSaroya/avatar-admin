@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { RouterProvider } from "react-router-dom"
-import { Toaster } from "react-hot-toast";
+import { RouterProvider } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import { useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import { router } from './Router/route'
+import DefaultDashboardLayout from './components/DefaultModel/DefaultDashboardLayout'
 
 const App = ({ children }) => {
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
@@ -24,12 +25,14 @@ const App = ({ children }) => {
     setColorMode(storedTheme)
   }, [])
 
-
-
   return (
     <>
-   <Toaster />
-    <RouterProvider router={router}>{children}</RouterProvider>
+      <Toaster />
+
+      <RouterProvider router={router}>
+        {' '}
+        <DefaultDashboardLayout>{children} </DefaultDashboardLayout>
+      </RouterProvider>
     </>
   )
 }

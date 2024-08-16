@@ -1,9 +1,9 @@
-import axios from 'axios'
-
+import axiosInstance from "../axiosInstance/axiosInstance";
+import toast from "react-hot-toast";
 // FETCH EXPERIENCES
 const fetchExperiences = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/experiences')
+    const response = await axiosInstance.get('/getallexperience?items_per_page=10&pg=1')
     return response.data
   } catch (error) {
     console.error(`Error getting experiences: ${error}.`)
@@ -14,7 +14,7 @@ const fetchExperiences = async () => {
 // FETCH EXPERIENCE BY ID
 const fetchExperienceById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8000/experiences/${id}`)
+    const response = await axiosInstance.get(`/experience/${id}`)
     return response.data
   } catch (error) {
     console.error(`Error getting experience: ${error}.`)
@@ -25,7 +25,7 @@ const fetchExperienceById = async (id) => {
 // DELETE EXPERIENCE BY ID
 const deleteExperienceById = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/experiences/${id}`)
+    const response = await axiosInstance.delete(`/experience-delete/${id}`)
     return response.data
   } catch (error) {
     console.error(`Error deleting experience: ${error}.`)
