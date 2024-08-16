@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import Pagination from '../../../components/pagination_common/Pagination'
-import fetchAllUsers from '../../../utils/services/userServices'
+import fetchAllUsers, { deleteUserById, searchUser } from '../../../utils/services/userServices'
 
 const Users = () => {
   const [userData, setUserData] = useState([])
@@ -24,13 +24,6 @@ const Users = () => {
   const handleUserView = (id) => {
     navigate(`/admin/users/${id}`)
   }
-
-  // Handle search form submission
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault()
-    setCurrentPage(1)
-  }
-
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
@@ -46,6 +39,29 @@ const Users = () => {
       toast.error('Failed to load dashboard data')
     }
   }
+  // Handle search form submission
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault()
+    setCurrentPage(1)
+
+    // Get the search value from the input
+    let search = e.target[0].value
+
+    try {
+      if (search === '') {
+        // If search input is empty, fetch all users
+        await fetchDashboardData()
+      } else {
+        // Otherwise, perform the search
+        let res = await searchUser(search)
+        if (res.success) {
+          setUserData(res.data)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     fetchDashboardData()
@@ -55,29 +71,20 @@ const Users = () => {
     navigate(`/admin/users/${id}`)
   }
 
-  const deleteUser = async (userId) => {
-    try {
-      const response = await deleteUserById(userId)
-      if (!response.ok) {
-        throw new Error('Failed to delete user')
-      }
-      return response.json()
-    } catch (error) {
-      console.error(`Error deleting user: ${error}.`)
-      throw error
-    }
-  }
-
-  const deleteUserById = async (userId) => {
+  const DeleteUserById = async (userId) => {
+    console.log(userId)
     try {
       setLoading(true)
-      await deleteUser(userId)
-      fetchDashboardData() // Refresh the data after deletion
-      toast.success('User deleted successfully')
+      const response = await deleteUserById(userId)
+      if (response?.success) {
+        fetchDashboardData()
+        toast.success('User deleted successfully')
+      }
     } catch (error) {
+      console.log(error)
       toast.error('Error deleting user')
     } finally {
-      setLoading(false) // Ensure loading state is reset
+      setLoading(false)
     }
   }
 
@@ -114,7 +121,7 @@ const Users = () => {
                     <Button variant="primary" size="sm" onClick={() => viewSingleUser(user._id)}>
                       View
                     </Button>
-                    <Button variant="danger" size="sm" onClick={() => deleteUserById(user._id)}>
+                    <Button variant="danger" size="sm" onClick={() => DeleteUserById(user._id)}>
                       Delete
                     </Button>
                   </td>

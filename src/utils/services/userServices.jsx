@@ -2,7 +2,6 @@ import axiosInstance from '../axiosInstance/axiosInstance'
 import toast from 'react-hot-toast'
 // FETCH USERS
 const fetchAllUsers = async (payload) => {
-  console.log(payload)
   let { page, items_per_page } = payload
   try {
     const response = await axiosInstance.get(
@@ -36,6 +35,15 @@ const deleteUserById = async (id) => {
     throw new Error(`Error deleting user: ${error}.`)
   }
 }
-
+// SEARCH USER BY USERNAME AND EMAIL
+const searchUser = async (query) => {
+  try {
+    const response = await axiosInstance.get(`/user-search?query=${query}`)
+    return response.data
+  } catch (error) {
+    console.error(`Error getting user: ${error}.`)
+    throw new Error(`Error getting user: ${error}.`)
+  }
+}
 export default fetchAllUsers
-export { fetchUserById, deleteUserById }
+export { fetchUserById, deleteUserById,searchUser }
