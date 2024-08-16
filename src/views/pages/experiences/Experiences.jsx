@@ -65,51 +65,47 @@ const Experiences = () => {
           setCurrentPage={setCurrentPage}
         />
       </div>
-      {!loading && apiError && <Alert variant="danger">{apiError}</Alert>}
-      {!loading && renderedExperiences?.length === 0 && !apiError && (
-        <Alert variant="warning">No Experiences Found!</Alert>
-      )}
-      {!loading && renderedExperiences?.length > 0 && (
-        <>
-          <div className="table-container">
-            <Table bordered hover>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Created By</th>
-                  <th>Total Bookings</th>
-                  <th>Price</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>sdsd</td>
-                  <td>dsada</td>
-                  <td>dsa</td>
-                  <td>dsadas</td>
-                  <td>dasdas</td>
-                  <td className="actions">
-                    <Button variant="primary" size="sm">
-                      View
-                    </Button>
-                    <Button variant="danger" size="sm">
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-          </div>
-          <PaginationCommon
-            currentPage={currentPage}
-            totalPages={Math.ceil(filteredExperiences.length / experiencesPerPage)}
-            handlePageChange={handlePageChange}
-            handleRowsCount={handleExperiencesPerPage}
-          />
-        </>
-      )}
+
+      <>
+        <div className="table-container">
+          <Table bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Created By</th>
+                <th>Total Bookings</th>
+                <th>Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>sdsd</td>
+                <td>dsada</td>
+                <td>dsa</td>
+                <td>dsadas</td>
+                <td>dasdas</td>
+                <td className="actions">
+                  <Button variant="primary" size="sm">
+                    View
+                  </Button>
+                  <Button variant="danger" size="sm">
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+        <PaginationCommon
+          currentPage={currentPage}
+          totalPages={Math.ceil(filteredExperiences.length / experiencesPerPage)}
+          handlePageChange={handlePageChange}
+          handleRowsCount={handleExperiencesPerPage}
+        />
+      </>
+
       {loading && <Loader />}
     </>
   )
