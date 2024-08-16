@@ -83,6 +83,16 @@ img {
   text-decoration: none;
   font-weight: 500;
 }
+/* Hide the up and down arrows in the number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
 
 .form-actions {
   display: flex;
