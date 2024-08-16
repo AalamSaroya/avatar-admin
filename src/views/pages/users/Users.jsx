@@ -118,17 +118,19 @@ const Users = () => {
       )}
       {!loading && renderedUsers?.length > 0 && (
         <>
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>{renderedUsers}</tbody>
-          </Table>
+          <div className="table-container">
+            <Table bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>{renderedUsers}</tbody>
+            </Table>
+          </div>
           <PaginationCommon
             currentPage={currentPage}
             totalPages={Math.ceil(filteredUsers.length / usersPerPage)}

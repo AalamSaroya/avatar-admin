@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
 import './UserDetails.css'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchUserById } from '../../../utils/services/userServices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
 const UserDetails = () => {
   const [user, setUser] = useState(null)
@@ -35,7 +34,7 @@ const UserDetails = () => {
           <dt>Email</dt>
           <dd>samar@gmail.com</dd>
           <dt>Avatar</dt>
-          <dd>
+          <dd className="is-avatar">
             <FontAwesomeIcon icon={faCircleCheck} />
           </dd>
         </dl>

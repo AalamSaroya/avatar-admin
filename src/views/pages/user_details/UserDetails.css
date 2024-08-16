@@ -8,3 +8,15 @@
   flex: calc(50% - 5px);
   margin-bottom: 0;
 }
+
+.is-avatar {
+  color: green
+}
+
+@media (max-width: 575px) {
+
+  .user-details dt,
+  .user-details dd {
+    flex: 100%;
+  }
+}

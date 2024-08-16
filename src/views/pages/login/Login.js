@@ -33,6 +33,7 @@ const Login = () => {
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={6}>
+            <h1 className="text-center">AvatarWalk</h1>
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>

@@ -31,11 +31,12 @@ img {
   max-width: 100%;
 }
 
-.sidebar.sidebar-narrow-unfoldable.hide + .wrapper {
+.sidebar.sidebar-narrow-unfoldable.hide+.wrapper {
   padding-left: 0;
 }
 
-.sidebar-narrow-unfoldable:not(:hover) .sidebar-header, .sidebar-narrow .sidebar-header {
+.sidebar-narrow-unfoldable:not(:hover) .sidebar-header,
+.sidebar-narrow .sidebar-header {
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -116,7 +117,7 @@ form p.error {
 }
 
 table.table.table-bordered.table-hover th {
-  background-color: var(--color-custom-border)!important;
+  background-color: var(--color-custom-border) !important;
 }
 
 .page-item .page-link {
@@ -134,4 +135,46 @@ table.table.table-bordered.table-hover th {
 .erro-404 {
   max-width: 300px;
   margin: 0 auto;
+}
+
+.table-container {
+  overflow: auto;
+  margin-bottom: 15px;
+}
+
+.table-container table {
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.dropdown-menu {
+  font-size: 14px;
+}
+
+.dropdown-menu svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+@media (max-width: 575px) {
+
+  .px-4,
+  .p-4 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .heading-and-search-form {
+    display: block;
+  }
+
+  .heading-and-search-form h2,
+  .heading-and-search-form .h2 {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .card.p-4 {
+    padding: 0 !important;
+  }
 }

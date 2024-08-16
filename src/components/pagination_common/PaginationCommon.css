@@ -12,3 +12,17 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 575px) {
+  .pagination-container {
+    display: block !important;
+  }
+
+  .pagination-container .pagination {
+    width: 100%;
+  }
+
+  .pagination-container select {
+    margin-top: 10px;
+  }
+}

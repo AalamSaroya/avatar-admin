@@ -153,17 +153,19 @@ const Avatars = () => {
       )}
       {!loading && renderedAvatars.length > 0 && (
         <>
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>{renderedAvatars}</tbody>
-          </Table>
+          <div className="table-container">
+            <Table bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>{renderedAvatars}</tbody>
+            </Table>
+          </div>
           <PaginationCommon
             currentPage={currentPage}
             totalPages={Math.ceil(filteredAvatars.length / avatarsPerPage)}

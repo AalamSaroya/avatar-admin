@@ -10,4 +10,9 @@ form.form-search input {
 
 form.form-search button {
   border-radius: 0;
+  width: 85px;
+}
+
+form.form-search>div {
+  width: calc(100% - 85px);
 }

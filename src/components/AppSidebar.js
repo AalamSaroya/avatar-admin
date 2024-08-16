@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from "react-router-dom"
 
 import {
   CSidebar,
@@ -10,9 +11,6 @@ import {
 } from '@coreui/react'
 
 import { AppSidebarNav } from './AppSidebarNav'
-
-import logo from 'src/assets/brand/bravo-logo.png'
-import logoSmall from 'src/assets/brand/bravo-logo-small.png'
 
 // sidebar nav config
 import navigation from '../_nav'
@@ -34,10 +32,8 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarHeader className="border-bottom">
-        <CSidebarBrand to="/"><span className="sidebar-brand-full">AvatarWalk</span><span className="sidebar-brand-narrow">AW</span>
-          {/* <img src={logo} alt="Logo" className="sidebar-brand-full" />
-          <img src={logoSmall} alt="Logo" className="sidebar-brand-narrow" /> */}
-        </CSidebarBrand>
+        <Link to="/" className="sidebar-brand"><span className="sidebar-brand-full">AvatarWalk</span><span className="sidebar-brand-narrow">AW</span>
+        </Link>
       </CSidebarHeader>
       <AppSidebarNav items={navigation} />
       <CSidebarFooter className="border-top d-none d-lg-flex">
