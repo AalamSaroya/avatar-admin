@@ -1,45 +1,49 @@
-import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
-import DefaultDashboardLayout from '../components/DefaultModel/DefaultDashboardLayout'
-import Dashboard from '../views/dashboard/Dashboard'
-import Users from '../views/pages/users/Users'
-import UserDetails from '../views/pages/user_details/UserDetails'
-import Avatars from '../views/pages/avatars/Avatars'
-import AvatarDetails from '../views/pages/avatar_details/AvatarDetails'
-import Experiences from '../views/pages/experiences/Experiences'
-import ExperienceDetails from '../views/pages/experience_details/ExperienceDetails'
-import Requests from '../views/pages/requests/Requests'
-import Profile from '../views/pages/profile/Profile'
-import Login from '../views/pages/login/Login'
-import ForgotPassword from '../views/pages/forgot_password/ForgotPassword'
-import Page404 from '../views/pages/page404/Page404'
-import RootFunction from './RootFunction'
-import { getLocalStorage } from '../utils/LocalStorageUtils'
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
+import DefaultDashboardLayout from '../components/DefaultModel/DefaultDashboardLayout';
+import Dashboard from '../views/dashboard/Dashboard';
+import Users from '../views/pages/users/Users';
+import UserDetails from '../views/pages/user_details/UserDetails';
+import Avatars from '../views/pages/avatars/Avatars';
+import AvatarDetails from '../views/pages/avatar_details/AvatarDetails';
+import Experiences from '../views/pages/experiences/Experiences';
+import ExperienceDetails from '../views/pages/experience_details/ExperienceDetails';
+import Requests from '../views/pages/requests/Requests';
+import Profile from '../views/pages/profile/Profile';
+import Login from '../views/pages/login/Login';
+import ForgotPassword from '../views/pages/forgot_password/ForgotPassword';
+import Page404 from '../views/pages/page404/Page404';
+import RootFunction from './RootFunction';
+import { getLocalStorage } from '../utils/LocalStorageUtils';
 
 const LoginProtected = ({ children }) => {
-  const admin = getLocalStorage('token')
-  return admin ? <Navigate to="/admin/dashboard" replace /> : children
-}
+  const admin = getLocalStorage('token');
+  return admin ? <Navigate to="/admin/dashboard" replace /> : children;
+};
 
 const DashboardProtected = ({ children }) => {
-  const admin = getLocalStorage('token')
+  const admin = getLocalStorage('token');
   return admin ? (
     <DefaultDashboardLayout>{children}</DefaultDashboardLayout>
   ) : (
     <Navigate to="/admin/login" replace />
-  )
-}
+  );
+};
 
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <Navigate to="/admin" replace />, // Redirect from root to /admin
+  },
+  {
+    path: '/admin',
     element: <RootFunction />,
     children: [
       {
-        path: '/admin',
-        element: <Navigate to="/admin/dashboard" replace />,
+        path: '', // Redirect from /admin to /admin/dashboard
+        element: <Navigate to="dashboard" replace />,
       },
       {
-        path: '/admin',
+        path: '',
         element: (
           <DashboardProtected>
             <Outlet />
@@ -85,7 +89,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: '/admin/login',
+        path: 'login',
         element: (
           <LoginProtected>
             <Login />
@@ -93,7 +97,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/admin/forgot-password',
+        path: 'forgot-password',
         element: (
           <LoginProtected>
             <ForgotPassword />
@@ -106,4 +110,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
