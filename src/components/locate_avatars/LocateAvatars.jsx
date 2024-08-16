@@ -1,21 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet'
 import L from 'leaflet'
+import fetchAllLocation from '../../utils/services/commonServices'
 
 // COMPONENT: LOCATE CONTROL
 const LocateControl = ({ setCenter }) => {
   const map = useMap()
 
   useEffect(() => {
+    const fetchAllAvatarLocation = async () => {
+      try {
+        const res = await fetchAllLocation()
+        if (res.success && res.data && res.data.length > 0) {
+          // Check if data is valid before using it
+          setCenter([res.data[0].lat, res.data[0].lng]) // Update center based on first location
+        } else {
+          console.log('No data or invalid data received')
+        }
+      } catch (error) {
+        console.log('Error fetching locations:', error)
+      }
+    }
+
+    fetchAllAvatarLocation()
     map.locate({ setView: true, maxZoom: 16 })
 
     map.on('locationfound', (e) => {
-      setCenter(e.latlng)
+      setCenter([e.latlng.lat, e.latlng.lng]) // Ensure correct format
       map.setView(e.latlng, 14)
     })
 
     map.on('locationerror', (e) => {
-      alert('Location access denied.')
+      console.log('Location error:', e)
     })
   }, [map, setCenter])
 
@@ -24,23 +40,37 @@ const LocateControl = ({ setCenter }) => {
 
 // COMPONENT: LOCATE AVATARS
 const LocateAvatars = () => {
-  const [center, setCenter] = useState([51.505, -0.09]) // Default center (London)
+  const [center, setCenter] = useState([30.7565665, 76.6398525]) // Default center based on sample data
+  const [locations, setLocations] = useState([])
   const radius = 1000 // Radius of the circle (in meters) in which avatars will be shown
 
-  const markers = [
-    { id: 1, position: [51.505, -0.09], text: 'Marker 1' },
-    { id: 2, position: [51.51, -0.1], text: 'Marker 2' },
-    { id: 3, position: [51.51, -0.12], text: 'Marker 3' },
-    { id: 4, position: [51.515, -0.07], text: 'Marker 4' }, // This marker is outside the defined bounds
-  ]
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const res = await fetchAllLocation()
+        if (res.success && Array.isArray(res.data)) {
+          setLocations(res.data) // Update state with the fetched locations
+          if (res.data.length > 0) {
+            setCenter([res.data[0].lat, res.data[0].lng]) // Set the center to the first location
+          }
+        } else {
+          console.log('No data or invalid data received')
+        }
+      } catch (error) {
+        console.error('Error fetching locations:', error)
+      }
+    }
+
+    fetchLocations()
+  }, [])
 
   const isMarkerWithinRadius = (position, center, radius) => {
     const distance = L.latLng(position).distanceTo(L.latLng(center))
     return distance <= radius
   }
 
-  const filteredMarkers = markers.filter((marker) =>
-    isMarkerWithinRadius(marker.position, center, radius),
+  const filteredMarkers = locations.filter((location) =>
+    isMarkerWithinRadius([location.lat, location.lng], center, radius),
   )
   const circleOptions = { color: 'red', weight: 2 }
 
@@ -56,11 +86,19 @@ const LocateAvatars = () => {
       />
       <LocateControl setCenter={setCenter} />
       <Circle center={center} radius={radius} pathOptions={circleOptions} />
-      {filteredMarkers.map((marker, idx) => (
-        <Marker key={idx} position={marker.position}>
-          <Popup>{marker.text}</Popup>
+      {filteredMarkers.length > 0 ? (
+        filteredMarkers.map((location, idx) => (
+          <Marker key={idx} position={[location.lat, location.lng]}>
+            <Popup>
+              {location.userName}<br />{location.email}
+            </Popup>
+          </Marker>
+        ))
+      ) : (
+        <Marker position={center}>
+          <Popup>No users found in this radius</Popup>
         </Marker>
-      ))}
+      )}
     </MapContainer>
   )
 }

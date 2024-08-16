@@ -90,10 +90,8 @@ const Avatars = () => {
         />
       </div>
       {!loading && apiError && <Alert variant="danger">{apiError}</Alert>}
-      {!loading && renderedAvatars.length === 0 && !apiError && (
-        <Alert variant="warning">No Avatars Found!</Alert>
-      )}
-      {!loading && renderedAvatars.length > 0 && (
+      {!loading && !apiError && <Alert variant="warning">No Avatars Found!</Alert>}
+      {!loading && (
         <>
           <div className="table-container">
             <Table bordered hover>
@@ -135,38 +133,6 @@ const Avatars = () => {
         </>
       )}
       {loading && <Loader />}
-      <Modal show={showEditAvatarModal} onHide={handleEditAvatarModalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Avatar</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleEditAvatarFormSubmit}>
-            <Form.Group className="mb-3" controlId="EditAvatarFormName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                ref={nameRef}
-                type="text"
-                placeholder="Enter Name"
-                defaultValue={editAvatar?.name}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="EditAvatarFormEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                ref={emailRef}
-                type="email"
-                placeholder="Enter Email"
-                defaultValue={editAvatar?.email}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </>
   )
 }

@@ -1,5 +1,4 @@
 import axiosInstance from '../axiosInstance/axiosInstance'
-import toast from 'react-hot-toast'
 // FETCH USERS
 const fetchAllUsers = async (payload) => {
   let { page, items_per_page } = payload
