@@ -15,7 +15,6 @@ const Users = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [totalPages, setTotalPages] = useState(1)
-
   const [searchQuery, setSearchQuery] = useState('')
 
   const navigate = useNavigate()
@@ -72,7 +71,6 @@ const Users = () => {
   }
 
   const DeleteUserById = async (userId) => {
-    console.log(userId)
     try {
       setLoading(true)
       const response = await deleteUserById(userId)
