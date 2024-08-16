@@ -1,7 +1,7 @@
-import AppSidebar from '../AppSidebar'
-import AppHeader from '../AppHeader'
-import AppFooter from '../AppFooter'
-import { Outlet } from 'react-router-dom'
+import AppSidebar from '../AppSidebar';
+import AppHeader from '../AppHeader';
+import AppFooter from '../AppFooter';
+import { Outlet } from 'react-router-dom';
 
 const DefaultDashboardLayout = () => {
   return (
@@ -15,7 +15,7 @@ const DefaultDashboardLayout = () => {
         <AppFooter />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DefaultDashboardLayout
+export default DefaultDashboardLayout;

@@ -1,19 +1,27 @@
 import './UserDetails.css'
+import {  Alert } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchUserById } from '../../../utils/services/userServices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import Loader from '../../../components/loader/Loader'
 
 const UserDetails = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState([])
   const { userId } = useParams()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+ 
     const getUser = async () => {
       try {
+        setLoading(true)
         const response = await fetchUserById(userId)
-        setUser(response)
+        setLoading(false)
+        if(response.success){
+          setUser(response.data)
+        }
       } catch (error) {
         console.error(`Error getting user details: ${error}.`)
       }
@@ -24,21 +32,31 @@ const UserDetails = () => {
   return (
     <>
       <div className="user-details">
-        <h1>dsadas</h1>
+      
+     
+    
         {/* <p>{user?.email}</p> */}
       </div>
+      {(user.length!==0)?<>
+        <h1>{user.userName}</h1>
       <div className="user-details box">
         <dl className="d-flex flex-wrap justify-content-between">
           <dt>Username</dt>
-          <dd>samar</dd>
+          <dd>{user.userName}</dd>
           <dt>Email</dt>
-          <dd>samar@gmail.com</dd>
+          <dd>{user.email}</dd>
           <dt>Avatar</dt>
-          <dd className="is-avatar">
+          {user.isAvatarApproved&&  <dd className="is-avatar">
             <FontAwesomeIcon icon={faCircleCheck} />
-          </dd>
+          </dd>}
+        
         </dl>
       </div>
+
+      </>: <Alert variant="warning">No Users Found!</Alert>}
+    
+      {loading && <Loader />}
+
     </>
   )
 }

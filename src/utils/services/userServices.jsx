@@ -1,9 +1,13 @@
-import axiosInstance from "../axiosInstance/axiosInstance";
-import toast from "react-hot-toast";
+import axiosInstance from '../axiosInstance/axiosInstance'
+import toast from 'react-hot-toast'
 // FETCH USERS
-const fetchUsers = async () => {
+const fetchAllUsers = async (payload) => {
+  console.log(payload)
+  let { page, items_per_page } = payload
   try {
-    const response = await axiosInstance.get('/getalluser?items_per_page=10&pg=1')
+    const response = await axiosInstance.get(
+      `/getalluser?items_per_page=${items_per_page}&pg=${page}`,
+    )
     return response.data
   } catch (error) {
     console.error(`Error getting users: ${error}.`)
@@ -33,5 +37,5 @@ const deleteUserById = async (id) => {
   }
 }
 
-export default fetchUsers
+export default fetchAllUsers
 export { fetchUserById, deleteUserById }

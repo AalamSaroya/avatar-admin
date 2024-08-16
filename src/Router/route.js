@@ -1,3 +1,5 @@
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
+import DefaultDashboardLayout from '../components/DefaultModel/DefaultDashboardLayout';
 import Dashboard from "../views/dashboard/Dashboard";
 import Users from "../views/pages/users/Users";
 import UserDetails from "../views/pages/user_details/UserDetails";
@@ -11,19 +13,15 @@ import Login from "../views/pages/login/Login";
 import ForgotPassword from "../views/pages/forgot_password/ForgotPassword";
 import Page404 from "../views/pages/page404/Page404";
 import RootFunction from "./RootFunction";
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { getLocalStorage } from "../utils/LocalStorageUtils";
-import DefaultDashboardLayout from "../components/DefaultModel/DefaultDashboardLayout";
 
 const LoginProtected = ({ children }) => {
   const admin = getLocalStorage("token");
-
   return admin ? <Navigate to="/admin/dashboard" replace /> : children;
 };
 
 const DashboardProtected = ({ children }) => {
   const admin = getLocalStorage("token");
-
   return admin ? <DefaultDashboardLayout>{children}</DefaultDashboardLayout> : <Navigate to="/admin/login" replace />;
 };
 
@@ -37,54 +35,59 @@ export const router = createBrowserRouter([
         element: <Navigate to="/admin/dashboard" replace />,
       },
       {
-        path: "/admin/dashboard",
-        element: <DashboardProtected><Dashboard /></DashboardProtected>,
+        path: "/admin",
+        element: <DashboardProtected><Outlet /></DashboardProtected>,
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "users",
+            element: <Users />,
+          },
+          {
+            path: "users/:userId",
+            element: <UserDetails />,
+          },
+          {
+            path: "avatars",
+            element: <Avatars />,
+          },
+          {
+            path: "avatars/:avatarId",
+            element: <AvatarDetails />,
+          },
+          {
+            path: "experiences",
+            element: <Experiences />,
+          },
+          {
+            path: "experiences/:experienceId",
+            element: <ExperienceDetails />,
+          },
+          {
+            path: "requests",
+            element: <Requests />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
       },
       {
-        path: "/admin/users",
-        element: <DashboardProtected><Users /></DashboardProtected>,
+        path: "/admin/login",
+        element: <LoginProtected><Login /></LoginProtected>,
       },
       {
-        path: "/admin/users/:userId",
-        element: <DashboardProtected><UserDetails /></DashboardProtected>,
+        path: "/admin/forgot-password",
+        element: <LoginProtected><ForgotPassword /></LoginProtected>,
       },
       {
-        path: "/admin/avatars",
-        element: <DashboardProtected><Avatars /></DashboardProtected>,
+        path: "*",
+        element: <Page404 />,
       },
-      {
-        path: "/admin/avatars/:avatarId",
-        element: <DashboardProtected><AvatarDetails /></DashboardProtected>,
-      },
-      {
-        path: "/admin/experiences",
-        element: <DashboardProtected><Experiences /></DashboardProtected>,
-      },
-      {
-        path: "/admin/experiences/:experienceId",
-        element: <DashboardProtected><ExperienceDetails /></DashboardProtected>,
-      },
-      {
-        path: "/admin/requests",
-        element: <DashboardProtected><Requests /></DashboardProtected>,
-      },
-      {
-        path: "/admin/profile",
-        element: <DashboardProtected><Profile /></DashboardProtected>,
-      },
-    ]
-  },
-  {
-    path: "/admin/login",
-    element: <LoginProtected><Login /></LoginProtected>,
-  },
-  {
-    path: "/admin/forgot-password",
-    element: <LoginProtected><ForgotPassword /></LoginProtected>,
-  },
-  {
-    path: "*",
-    element: <Page404 />,
+    ],
   },
 ]);
-

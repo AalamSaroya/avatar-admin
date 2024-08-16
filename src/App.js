@@ -31,7 +31,7 @@ const App = ({ children }) => {
 
       <RouterProvider router={router}>
         {' '}
-        <DefaultDashboardLayout>{children} </DefaultDashboardLayout>
+       {children}
       </RouterProvider>
     </>
   )

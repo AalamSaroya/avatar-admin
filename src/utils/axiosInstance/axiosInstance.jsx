@@ -1,36 +1,34 @@
-import axios from "axios";
-import { getLocalStorage } from "../LocalStorageUtils";
+import axios from 'axios'
+import { getLocalStorage } from '../LocalStorageUtils'
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:2000/admin",
-
-});
-
+  baseURL: 'http://localhost:2000/admin',
+})
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getLocalStorage("token");
+    const token = getLocalStorage('token')
     if (token) {
-      config.headers["Authorization"] = `${token}`; // Typically tokens are passed with 'Bearer ' prefix
+      config.headers['Authorization'] = `Bearer ${token}` // Add Bearer prefix
     }
-    return config;
+    return config
   },
   (error) => {
-    return Promise.reject(error);
-  }
-);
+    return Promise.reject(error)
+  },
+)
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    return response;
+    return response
   },
   (error) => {
-    if (error.response && error.response.status === 401 ) {
-      localStorage.clear();
-      window.location.href = "/admin/login";
+    if (error.response && error.response.status === 401) {
+      localStorage.clear()
+      window.location.href = '/admin/login'
     }
-    return Promise.reject(error);
-  }
-);
+    return Promise.reject(error)
+  },
+)
 
-export default axiosInstance;
+export default axiosInstance
