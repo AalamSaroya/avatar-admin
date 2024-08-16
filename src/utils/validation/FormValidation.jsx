@@ -1,11 +1,14 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const validateLogin = yup.object({
-  username: yup.string().required('Username is required.'),
+  email: yup
+    .string()
+    .required('Email is required.')
+    .email('Please enter a valid email address.'),
   password: yup
     .string()
     .required('Password is required.')
-    .min(8, 'Password must be at least 8 characters'),
-})
+    .min(5, 'Password must be at least 5 characters'),
+});
 
-export { validateLogin }
+export { validateLogin };
