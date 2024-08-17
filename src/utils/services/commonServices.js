@@ -5,8 +5,10 @@ const fetchAllLocation = async () => {
     const response = await axiosInstance.get('/getalllocation')
     return response.data
   } catch (error) {
-    console.error(`Error getting experiences: ${error}.`)
-    throw new Error(`Error getting experiences: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 

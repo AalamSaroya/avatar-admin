@@ -18,7 +18,7 @@ const ExperienceDetails = () => {
         setLoading(true)
         const response = await fetchExperienceById(experienceId)
         setLoading(false)
-        if (response.success) {
+        if (response?.success) {
           console.log(response.data)
           setExperience(response.data)
         }

@@ -52,7 +52,7 @@ const Avatars = () => {
       } else {
         // Otherwise, perform the search
         let res = await searchAvatar(search)
-        if (res.success) {
+        if (res?.success) {
           setAvatarData(res.data)
         }
       }

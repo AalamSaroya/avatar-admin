@@ -31,8 +31,10 @@ const deleteExperienceById = async (id) => {
     const response = await axiosInstance.delete(`/experience-delete/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error deleting user: ${error}.`)
-    throw new Error(`Error deleting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -41,8 +43,10 @@ const searchExperience = async (query) => {
     const response = await axiosInstance.get(`/experience-search?query=${query}`)
     return response.data
   } catch (error) {
-    console.error(`Error getting user: ${error}.`)
-    throw new Error(`Error getting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 export default fetchAllExperiences

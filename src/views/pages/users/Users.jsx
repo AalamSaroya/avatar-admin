@@ -49,7 +49,7 @@ const Users = () => {
       } else {
         // Otherwise, perform the search
         let res = await searchUser(search)
-        if (res.success) {
+        if (res?.success) {
           setUserData(res.data)
         }
       }

@@ -18,7 +18,7 @@ const UserDetails = () => {
         setLoading(true)
         const response = await fetchUserById(userId)
         setLoading(false)
-        if (response.success) {
+        if (response?.success) {
           setUser(response.data)
         }
       } catch (error) {

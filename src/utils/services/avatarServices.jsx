@@ -6,11 +6,15 @@ const fetchAvatars = async (payload) => {
   let { page, items_per_page } = payload
 
   try {
-    const response = await axiosInstance.get(`/getallavatar?items_per_page=${items_per_page}&pg=${page}`)
+    const response = await axiosInstance.get(
+      `/getallavatar?items_per_page=${items_per_page}&pg=${page}`,
+    )
     return response.data
   } catch (error) {
-    console.error(`Error getting Avatars: ${error}.`)
-    throw new Error(`Error getting Avatars: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -20,8 +24,10 @@ const fetchAvatarById = async (id) => {
     const response = await axiosInstance.get(`/avatar/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error getting avatar: ${error}.`)
-    throw new Error(`Error getting avatar: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -31,8 +37,10 @@ const deleteAvatarById = async (id) => {
     const response = await axiosInstance.delete(`/avatar-delete/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error deleting user: ${error}.`)
-    throw new Error(`Error deleting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -41,8 +49,10 @@ const searchAvatar = async (query) => {
     const response = await axiosInstance.get(`/user-search?query=${query}`)
     return response.data
   } catch (error) {
-    console.error(`Error getting user: ${error}.`)
-    throw new Error(`Error getting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 

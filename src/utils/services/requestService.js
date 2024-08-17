@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast'
 import axiosInstance from '../axiosInstance/axiosInstance'
 // FETCH USERS
 const fetchAllRequest = async (payload) => {
@@ -8,8 +9,10 @@ const fetchAllRequest = async (payload) => {
     )
     return response.data
   } catch (error) {
-    console.error(`Error getting users: ${error}.`)
-    throw new Error(`Error getting users: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -19,8 +22,10 @@ const updateRequestById = async (payload) => {
     const response = await axiosInstance.patch('/update-request-status', payload)
     return response.data
   } catch (error) {
-    console.error(`Error deleting user: ${error}.`)
-    throw new Error(`Error deleting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 

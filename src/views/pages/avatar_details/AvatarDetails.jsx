@@ -18,7 +18,7 @@ const AvatarDetails = () => {
         setLoading(true)
         const response = await fetchAvatarById(avatarId)
         setLoading(false)
-        if (response.success) {
+        if (response?.success) {
           setAvatar(response.data)
         }
       } catch (error) {

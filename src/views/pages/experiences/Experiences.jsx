@@ -54,7 +54,7 @@ const Experiences = () => {
       } else {
         // Otherwise, perform the search
         let res = await searchExperience(search)
-        if (res.success) {
+        if (res?.success) {
           setExperienceData(res.data)
         }
       }

@@ -37,7 +37,7 @@ const Requests = () => {
     let body = { requestId: id, status: status }
     try {
       let res = await updateRequestById(body)
-      if (res.success) {
+      if (res?.success) {
         toast.success(`Requested Successfully ${status}`)
         fetchReqestData()
       }
@@ -51,7 +51,7 @@ const Requests = () => {
         <section className="requests">
           <h2>Avatar Requests</h2>
           {requestData.map((request) => {
-            console.log(request)
+         
             // Only render the request if both userName, email are available, and status is "Requested"
             if (request.userName && request.email && request.status === 'Requested') {
               return (

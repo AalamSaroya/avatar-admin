@@ -1,4 +1,6 @@
 import axiosInstance from '../axiosInstance/axiosInstance'
+import toast from 'react-hot-toast'
+
 // FETCH USERS
 const fetchAllUsers = async (payload) => {
   let { page, items_per_page } = payload
@@ -8,8 +10,10 @@ const fetchAllUsers = async (payload) => {
     )
     return response.data
   } catch (error) {
-    console.error(`Error getting users: ${error}.`)
-    throw new Error(`Error getting users: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -19,8 +23,10 @@ const fetchUserById = async (id) => {
     const response = await axiosInstance.get(`/user/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error getting user: ${error}.`)
-    throw new Error(`Error getting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 
@@ -30,8 +36,11 @@ const deleteUserById = async (id) => {
     const response = await axiosInstance.delete(`/user-delete/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error deleting user: ${error}.`)
-    throw new Error(`Error deleting user: ${error}.`)
+
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+    }
+    toast.error(error.response.data.message)
   }
 }
 // SEARCH USER BY USERNAME AND EMAIL
@@ -40,9 +49,12 @@ const searchUser = async (query) => {
     const response = await axiosInstance.get(`/user-search?query=${query}`)
     return response.data
   } catch (error) {
-    console.error(`Error getting user: ${error}.`)
-    throw new Error(`Error getting user: ${error}.`)
+    if (error.response.data.message == 'Invalid token') {
+      localStorage.clear()
+      toast.error(error.response.data.message)
+    }
+    toast.error(error.response.message)
   }
 }
 export default fetchAllUsers
-export { fetchUserById, deleteUserById,searchUser }
+export { fetchUserById, deleteUserById, searchUser }
