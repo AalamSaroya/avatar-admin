@@ -1,13 +1,8 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilAccountLogout,
-  cilSpeedometer,
-  cilUser,
-  cilStar,
-  cilUserPlus
-} from '@coreui/icons'
+import { cilAccountLogout, cilSpeedometer, cilUser, cilStar, cilUserPlus } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import toast from 'react-hot-toast'
 
 const _nav = [
   {
@@ -44,15 +39,7 @@ const _nav = [
     to: '/admin/requests',
     icon: <CIcon icon={cilUserPlus} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: 'Logout',
-    to: '/admin/login',
-    icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
-    onClick: () => {
-      console.log("User Logged out.");
-    }
-  },
+  
 ]
 
 export default _nav

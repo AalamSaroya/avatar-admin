@@ -3,7 +3,7 @@ import { CAvatar, CDropdown, CDropdownMenu, CDropdownToggle } from '@coreui/reac
 import { cilAccountLogout, cilUser } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
+import avatar8 from './../../assets/images/admin.png'
 
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'

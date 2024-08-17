@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Table, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-
 import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import Pagination from '../../../components/pagination_common/Pagination'

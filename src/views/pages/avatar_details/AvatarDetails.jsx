@@ -5,7 +5,7 @@ import { fetchAvatarById } from '../../../utils/services/avatarServices'
 import { Alert } from 'react-bootstrap'
 import Loader from '../../../components/loader/Loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const AvatarDetails = () => {
   const [avatar, setAvatar] = useState([])
@@ -41,11 +41,14 @@ const AvatarDetails = () => {
               <dt>Email</dt>
               <dd>{avatar.userId.email}</dd>
               <dt>Avatar</dt>
-              {avatar.userId.isAvatarApproved && (
-                <dd className="is-avatar">
+
+              <dd className="is-avatar">
+                {avatar.userId.isAvatarApproved ? (
                   <FontAwesomeIcon icon={faCircleCheck} />
-                </dd>
-              )}
+                ) : (
+                  <FontAwesomeIcon icon={faTimesCircle} /> // or any cross icon you prefer
+                )}
+              </dd>
             </dl>
           </div>
         </>
