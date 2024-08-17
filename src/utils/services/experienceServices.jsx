@@ -1,13 +1,16 @@
-import axiosInstance from "../axiosInstance/axiosInstance";
-import toast from "react-hot-toast";
+import axiosInstance from '../axiosInstance/axiosInstance'
+import toast from 'react-hot-toast'
 // FETCH EXPERIENCES
-const fetchExperiences = async () => {
+const fetchAllExperiences = async (payload) => {
+  let { page, items_per_page } = payload
   try {
-    const response = await axiosInstance.get('/getallexperience?items_per_page=10&pg=1')
+    const response = await axiosInstance.get(
+      `/getallexperience?items_per_page=${items_per_page}&pg=${page}`,
+    )
     return response.data
   } catch (error) {
-    console.error(`Error getting experiences: ${error}.`)
-    throw new Error(`Error getting experiences: ${error}.`)
+    console.error(`Error getting users: ${error}.`)
+    throw new Error(`Error getting users: ${error}.`)
   }
 }
 
@@ -17,8 +20,8 @@ const fetchExperienceById = async (id) => {
     const response = await axiosInstance.get(`/experience/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error getting experience: ${error}.`)
-    throw new Error(`Error getting experience: ${error}.`)
+    console.error(`Error getting user: ${error}.`)
+    throw new Error(`Error getting user: ${error}.`)
   }
 }
 
@@ -28,10 +31,19 @@ const deleteExperienceById = async (id) => {
     const response = await axiosInstance.delete(`/experience-delete/${id}`)
     return response.data
   } catch (error) {
-    console.error(`Error deleting experience: ${error}.`)
-    throw new Error(`Error deleting experience: ${error}.`)
+    console.error(`Error deleting user: ${error}.`)
+    throw new Error(`Error deleting user: ${error}.`)
   }
 }
 
-export default fetchExperiences
-export { fetchExperienceById, deleteExperienceById }
+const searchExperience = async (query) => {
+  try {
+    const response = await axiosInstance.get(`/experience-search?query=${query}`)
+    return response.data
+  } catch (error) {
+    console.error(`Error getting user: ${error}.`)
+    throw new Error(`Error getting user: ${error}.`)
+  }
+}
+export default fetchAllExperiences
+export { fetchExperienceById, deleteExperienceById, searchExperience }

@@ -1,57 +1,90 @@
 import './Experiences.css'
 import React, { useEffect, useState } from 'react'
-import { Table, Button, Alert, Pagination } from 'react-bootstrap'
+import { Table, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-
+import toast from 'react-hot-toast'
 import Loader from '../../../components/loader/Loader'
-import PaginationCommon from '../../../components/pagination_common/PaginationCommon.jsx'
 import FormSearch from '../../../components/form_search/FormSearch.jsx'
-import DefaultLayout from '../../../layout/DefaultLayout.js'
+import fetchAllExperiences, {
+  deleteExperienceById,
+  searchExperience,
+} from '../../../utils/services/experienceServices.jsx'
+import Pagination from '../../../components/pagination_common/Pagination.js'
 
 const Experiences = () => {
-  const [experiences, setExperiences] = useState([])
+  const [experienceData, setExperienceData] = useState([])
   const [loading, setLoading] = useState(false)
-  const [apiError, setApiError] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [totalPages, setTotalPages] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
-  const [currentPage, setCurrentPage] = useState(
-    parseInt(sessionStorage.getItem('currentPage')) || 1,
-  )
-  const [experiencesPerPage, setExperiencesPerPage] = useState(10)
 
   const navigate = useNavigate()
 
-  // NAVIGATE TO EXPERIENCE DETAIL PAGE
-  const handleExperienceView = (id) => {
-    sessionStorage.setItem('currentPage', currentPage) // Store the current page before navigating
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true)
+      const response = await fetchAllExperiences({
+        page: currentPage,
+        items_per_page: itemsPerPage,
+      })
+      setLoading(false)
+      if (response?.success) {
+        setExperienceData(response.data)
+        setTotalPages(Math.ceil(response.total_items / itemsPerPage))
+      }
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+      toast.error('Failed to load dashboard data')
+    }
+  }
+  // Handle search form submission
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault()
+    setCurrentPage(1)
+
+    // Get the search value from the input
+    let search = e.target[0].value
+
+    try {
+      if (search === '') {
+        // If search input is empty, fetch all users
+        await fetchDashboardData()
+      } else {
+        // Otherwise, perform the search
+        let res = await searchExperience(search)
+        if (res.success) {
+          setExperienceData(res.data)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDashboardData()
+  }, [currentPage, itemsPerPage])
+
+  const viewSingleExperience = (id) => {
     navigate(`/admin/experiences/${id}`)
   }
 
-  // PAGINATION
-  const filteredExperiences = experiences.filter((experience) => {
-    return experience.name.toLowerCase().includes(searchQuery.toLowerCase())
-  })
-
-  const indexOfLastExperience = currentPage * experiencesPerPage
-  const indexOfFirstExperience = indexOfLastExperience - experiencesPerPage
-  const currentExperiences = filteredExperiences.slice(
-    indexOfFirstExperience,
-    indexOfLastExperience,
-  )
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber)
-    sessionStorage.setItem('currentPage', pageNumber)
-  }
-
-  const handleExperiencesPerPage = (usersCount) => {
-    setExperiencesPerPage(usersCount)
-    setCurrentPage(1)
-  }
-
-  // HANDLE SEARCH FORM SUBMISSION
-  const handleSearchSubmit = (e) => {
-    e.preventDefault()
-    setCurrentPage(1)
+  const DeleteExperienceByIdFunction = async (userId) => {
+    try {
+      setLoading(true)
+      const response = await deleteExperienceById(userId)
+      if (response?.success) {
+        fetchDashboardData()
+        toast.success('User deleted successfully')
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Error deleting user')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -72,37 +105,58 @@ const Experiences = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Created By</th>
+                <th>Avatar Name</th>
+                <th>Experience Name</th>
                 <th>Total Bookings</th>
-                <th>Price</th>
+                <th>Rating</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>sdsd</td>
-                <td>dsada</td>
-                <td>dsa</td>
-                <td>dsadas</td>
-                <td>dasdas</td>
-                <td className="actions">
-                  <Button variant="primary" size="sm">
-                    View
-                  </Button>
-                  <Button variant="danger" size="sm">
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-            </tbody>
+            {experienceData.length !== 0 ? (
+              <tbody>
+                {experienceData.map((exp) => {
+                  return (
+                    <tr key={exp._id}>
+                      <td>{exp._id}</td>
+                      <td>{exp.avatarName}</td>
+                      <td>{exp.ExperienceName}</td>
+                      <td>{exp.Booking}</td>
+                      <td>{exp.rating[0]}</td>
+                      <td className="actions">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => viewSingleExperience(exp._id)}
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => DeleteExperienceByIdFunction(exp._id)}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            ) : (
+              <Alert variant="warning">No Experience Found!</Alert>
+            )}
           </Table>
         </div>
-        <PaginationCommon
+
+        <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(filteredExperiences.length / experiencesPerPage)}
-          handlePageChange={handlePageChange}
-          handleRowsCount={handleExperiencesPerPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={(value) => {
+            setCurrentPage(1)
+            setItemsPerPage(value)
+          }}
         />
       </>
 

@@ -19,10 +19,7 @@ const Users = () => {
 
   const navigate = useNavigate()
 
-  // NAVIGATE TO USER DETAIL PAGE
-  const handleUserView = (id) => {
-    navigate(`/admin/users/${id}`)
-  }
+
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
