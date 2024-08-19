@@ -2,8 +2,8 @@ import axios from 'axios'
 import { getLocalStorage } from '../LocalStorageUtils'
 
 const axiosInstance = axios.create({
-  // baseURL: 'https://avatarbackend.onrender.com/admin',
-  baseURL: 'http://localhost:3000/admin',
+  baseURL: 'https://avatarbackend.onrender.com/admin',
+  // baseURL: 'http://localhost:3000/admin',
 })
 
 axiosInstance.interceptors.request.use(
