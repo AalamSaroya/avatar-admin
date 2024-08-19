@@ -14,6 +14,7 @@ import ForgotPassword from '../views/pages/forgot_password/ForgotPassword';
 import Page404 from '../views/pages/page404/Page404';
 import RootFunction from './RootFunction';
 import { getLocalStorage } from '../utils/LocalStorageUtils';
+import Admin from '../views/pages/admin/admin';
 
 const LoginProtected = ({ children }) => {
   const admin = getLocalStorage('token');
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
           {
             path: 'requests',
             element: <Requests />,
+          },
+          {
+            path: 'admin',
+            element: <Admin/>,
           },
           {
             path: 'profile',
