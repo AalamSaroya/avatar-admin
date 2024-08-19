@@ -28,6 +28,25 @@ const ResetPasswordApi = async (payload) => {
   }
 }
 
+const addcommission = async(payload)=>{
+  console.log(payload);
+  try{
+      const response = await axiosInstance.post('/commision', payload)
+     return response.data;
+  }catch(error){
+    toast.error(error.response.data.message);
+  }
+}
+
+const getcommission = async()=>{
+  try{
+     const getdata = await axiosInstance.get('/getcommision');
+     return getdata.data;
+  }catch(err){
+    console.log(err);
+  }
+}
+
 export default LoginApi
 
-export { RequestPasswordResetApi, ResetPasswordApi }
+export { RequestPasswordResetApi, ResetPasswordApi ,addcommission,getcommission }
