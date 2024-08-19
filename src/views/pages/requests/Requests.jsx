@@ -19,6 +19,7 @@ const Requests = () => {
       const response = await fetchAllRequest({ page: currentPage, items_per_page: itemsPerPage })
       setLoading(false)
       if (response?.success) {
+        console.log(response.data);
         setRequestData(response.data)
         setTotalPages(Math.ceil(response.total_items / itemsPerPage))
       }
@@ -35,12 +36,18 @@ const Requests = () => {
 
   const updateRequest = async (id, status) => {
     let body = { requestId: id, status: status }
+
     try {
       let res = await updateRequestById(body)
-      if (res?.success) {
-        toast.success(`Requested Successfully ${status}`)
+
+      if (res?.success && status===true) {
+        toast.success(res.message)
         fetchReqestData()
       }
+      if(res?.success && status===false) {
+        toast.error(res.message)
+      }
+
     } catch (error) {
       console.log(error)
     }
@@ -53,7 +60,8 @@ const Requests = () => {
           {requestData.map((request) => {
          
             // Only render the request if both userName, email are available, and status is "Requested"
-            if (request.userName && request.email && request.status === 'Requested') {
+            if (request.userName && request.email && request.isAvatarApproved
+               ===false) {
               return (
                 <div className="requests-list mt-3" key={request._id}>
                   <div className="request d-flex mb-2">
@@ -64,21 +72,21 @@ const Requests = () => {
                       <p className="mb-0">{request.email}</p>
                     </div>
                     <div className="r-email">
-                      <p className="mb-0">{request.status}</p>
+                      <p className="mb-0">{request.isAvatarApproved}</p>
                     </div>
 
                     <div className="r-actions">
                       <Button
                         variant="success"
                         size="sm"
-                        onClick={() => updateRequest(request._id, 'Completed')}
+                        onClick={() => updateRequest(request._id, true)}
                       >
                         Accept
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => updateRequest(request._id, 'Cancelled')}
+                        onClick={() => updateRequest(request._id, false)}
                       >
                         Reject
                       </Button>
