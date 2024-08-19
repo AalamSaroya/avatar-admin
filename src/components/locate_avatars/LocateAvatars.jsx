@@ -40,7 +40,7 @@ const LocateControl = ({ setCenter }) => {
 const LocateAvatars = () => {
   const [center, setCenter] = useState([0, 0]) // Default center before data is loaded
   const [locations, setLocations] = useState([])
-  console.log(locations,'skdf');
+  
 
   useEffect(() => {
     const fetchLocations = async () => {

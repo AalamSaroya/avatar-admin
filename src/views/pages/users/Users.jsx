@@ -112,10 +112,10 @@ const Users = () => {
                   <td>{user.userName}</td>
                   <td>{user.email}</td>
                   <td className="actions">
-                    <Button variant="primary" size="sm" onClick={() => viewSingleUser(user._id)}>
+                    <Button variant="primary" size="sm" onClick={() => viewSingleUser(user.id)}>
                       View
                     </Button>
-                    <Button variant="danger" size="sm" onClick={() => DeleteUserById(user._id)}>
+                    <Button variant="danger" size="sm" onClick={() => DeleteUserById(user.id)}>
                       Delete
                     </Button>
                   </td>

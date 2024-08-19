@@ -21,6 +21,8 @@ const Avatars = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
 
+  const filtereddata  = avatarData.filter((avt)=>avt.isAvatarApproved===true);
+  console.log(filtereddata,'jksdjf');
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
@@ -110,7 +112,7 @@ const Avatars = () => {
                 </tr>
               </thead>
               <tbody>
-                {avatarData.map((avatar) => {
+                {filtereddata.map((avatar) => {
                   console.log(avatar)
                   return (
                     <tr key={avatar._id}>
