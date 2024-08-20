@@ -25,6 +25,7 @@ const Users = () => {
       const response = await fetchAllUsers({ page: currentPage, items_per_page: itemsPerPage })
       setLoading(false)
       if (response?.success) {
+        console.log(response.data)
         setUserData(response.data)
         setTotalPages(Math.ceil(response.total_items / itemsPerPage))
       }
@@ -107,8 +108,8 @@ const Users = () => {
           <tbody>
             {userData.length !== 0 ? (
               userData.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
+                <tr key={user.id||user._id}>
+                  <td>{user.id||user._id}</td>
                   <td>{user.userName}</td>
                   <td>{user.email}</td>
                   <td className="actions">

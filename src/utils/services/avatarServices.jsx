@@ -46,7 +46,7 @@ const deleteAvatarById = async (id) => {
 
 const searchAvatar = async (query) => {
   try {
-    const response = await axiosInstance.get(`/user-search?query=${query}`)
+    const response = await axiosInstance.get(`/avatar-search?query=${query}`)
     return response.data
   } catch (error) {
     if (error.response.data.message == 'Invalid token') {
