@@ -18,7 +18,6 @@ const Users = () => {
 
   const navigate = useNavigate()
 
-
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
@@ -108,8 +107,8 @@ const Users = () => {
           <tbody>
             {userData.length !== 0 ? (
               userData.map((user) => (
-                <tr key={user.id||user._id}>
-                  <td>{user.id||user._id}</td>
+                <tr key={user.id || user._id}>
+                  <td>{user.id || user._id}</td>
                   <td>{user.userName}</td>
                   <td>{user.email}</td>
                   <td className="actions">

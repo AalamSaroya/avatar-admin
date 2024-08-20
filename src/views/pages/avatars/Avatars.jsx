@@ -115,7 +115,7 @@ const Avatars = () => {
                     return (
                       <tr key={avatar._id}>
                         <td>{avatar._id}</td>
-                        <td>{avatar.userName||avatar.username}</td>
+                        <td>{avatar.userName || avatar.username}</td>
                         <td>{avatar.email}</td>
                         <td className="actions">
                           <Button
