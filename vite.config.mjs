@@ -4,7 +4,7 @@ import path from 'node:path'
 import autoprefixer from 'autoprefixer'
 
 export default defineConfig({
-  base: './',
+  base: '/src/',
   build: {
     outDir: 'dist',
   },

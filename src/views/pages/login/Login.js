@@ -35,7 +35,7 @@ const Login = () => {
         setLocalStorage('token', response?.token)
         toast.success(response?.message)
         navigate('/admin/users')
-      } 
+      }
     } catch (error) {
       toast.error(error?.message || 'An error occurred')
     } finally {
