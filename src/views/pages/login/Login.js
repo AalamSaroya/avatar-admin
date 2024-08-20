@@ -31,9 +31,8 @@ const Login = () => {
 
     try {
       const response = await LoginApi(payload) // Assuming LoginApi sends JSON payload
-
-      if (response?.success) {
-        setLocalStorage('token', response?.accessToken)
+      if (response?.isSuccess) {
+        setLocalStorage('token', response?.token)
         toast.success(response?.message)
         navigate('/admin/dashboard')
       } 

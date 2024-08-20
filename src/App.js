@@ -29,10 +29,7 @@ const App = ({ children }) => {
     <>
       <Toaster />
 
-      <RouterProvider router={router}>
-        {' '}
-       {children}
-      </RouterProvider>
+      <RouterProvider router={router}> {children}</RouterProvider>
     </>
   )
 }

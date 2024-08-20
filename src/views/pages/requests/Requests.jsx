@@ -20,6 +20,7 @@ const Requests = () => {
       setLoading(false)
       if (response?.success) {
         setRequestData(response.data)
+        console.log(response.data)
         setTotalPages(Math.ceil(response.total_items / itemsPerPage))
       }
     } catch (error) {
@@ -37,11 +38,20 @@ const Requests = () => {
     let body = { requestId: id, status: status }
     try {
       let res = await updateRequestById(body)
+  
       if (res?.success) {
-        toast.success(`Requested Successfully ${status}`)
-        fetchReqestData()
+        if (res.message === 'Request is not accepted.') {
+          toast.error(res.message)
+          fetchReqestData()
+        } else {
+          toast.success(`Requested Successfully ${status}`)
+
+          fetchReqestData()
+        }
       }
     } catch (error) {
+      toast.error(error.message)
+
       console.log(error)
     }
   }
@@ -51,43 +61,35 @@ const Requests = () => {
         <section className="requests">
           <h2>Avatar Requests</h2>
           {requestData.map((request) => {
-         
-            // Only render the request if both userName, email are available, and status is "Requested"
-            if (request.userName && request.email && request.status === 'Requested') {
-              return (
-                <div className="requests-list mt-3" key={request._id}>
-                  <div className="request d-flex mb-2">
-                    <div className="r-name">
-                      <h6 className="mb-0">{request.userName}</h6>
-                    </div>
-                    <div className="r-email">
-                      <p className="mb-0">{request.email}</p>
-                    </div>
-                    <div className="r-email">
-                      <p className="mb-0">{request.status}</p>
-                    </div>
+            return (
+              <div className="requests-list mt-3" key={request._id}>
+                <div className="request d-flex mb-2">
+                  <div className="r-name">
+                    <h6 className="mb-0">{request.userName}</h6>
+                  </div>
+                  <div className="r-email">
+                    <p className="mb-0">{request.email}</p>
+                  </div>
 
-                    <div className="r-actions">
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={() => updateRequest(request._id, 'Completed')}
-                      >
-                        Accept
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => updateRequest(request._id, 'Cancelled')}
-                      >
-                        Reject
-                      </Button>
-                    </div>
+                  <div className="r-actions">
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() => updateRequest(request._id, true)}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => updateRequest(request._id, false)}
+                    >
+                      Reject
+                    </Button>
                   </div>
                 </div>
-              )
-            }
-            return null // Return null if userName, email are not available, or status is not "Requested"
+              </div>
+            )
           })}
         </section>
       ) : (

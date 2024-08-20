@@ -16,7 +16,6 @@ const RequestPasswordResetApi = async (payload) => {
     return responce.data
   } catch (error) {
     toast.error(error.response.data.message)
-   
   }
 }
 const ResetPasswordApi = async (payload) => {

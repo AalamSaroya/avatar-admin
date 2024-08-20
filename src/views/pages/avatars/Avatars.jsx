@@ -27,7 +27,6 @@ const Avatars = () => {
       const response = await fetchAvatars({ page: currentPage, items_per_page: itemsPerPage })
       setLoading(false)
       if (response?.success) {
-        console.log(response)
         setAvatarData(response.data)
         setTotalPages(Math.ceil(response.total_items / itemsPerPage))
       }
@@ -110,35 +109,33 @@ const Avatars = () => {
                 </tr>
               </thead>
               <tbody>
-                {avatarData.map((avatar) => {
-                  console.log(avatar)
-                  return (
-                    <tr key={avatar._id}>
-                      <td>{avatar._id}</td>
-                      <td>{avatar.userName}</td>
-                      <td>{avatar.email}</td>
-                      <td className="actions">
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          onClick={() => viewSingleAvatar(avatar._id)}
-                        >
-                          View
-                        </Button>
-                        {/* <Button variant="secondary" size="sm">
-                          Edit
-                        </Button> */}
-                        <Button
-                          variant="danger"
-                          size="sm"
-                          onClick={() => DeleteAvatarById(avatar._id)}
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  )
-                })}
+                {avatarData
+                  .filter((avatar) => !avatar.isAvatarApproved) // Filter avatars with isAvatarApproved == false
+                  .map((avatar) => {
+                    return (
+                      <tr key={avatar._id}>
+                        <td>{avatar._id}</td>
+                        <td>{avatar.userName}</td>
+                        <td>{avatar.email}</td>
+                        <td className="actions">
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => viewSingleAvatar(avatar._id)}
+                          >
+                            View
+                          </Button>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => DeleteAvatarById(avatar._id)}
+                          >
+                            Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    )
+                  })}
               </tbody>
             </Table>
           </div>
