@@ -110,7 +110,7 @@ const Avatars = () => {
               </thead>
               <tbody>
                 {avatarData
-                  .filter((avatar) => !avatar.isAvatarApproved) // Filter avatars with isAvatarApproved == false
+                  .filter((avatar) => avatar.isAvatarApproved) // Filter avatars with isAvatarApproved == false
                   .map((avatar) => {
                     return (
                       <tr key={avatar._id}>
