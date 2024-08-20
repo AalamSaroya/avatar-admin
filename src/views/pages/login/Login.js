@@ -34,7 +34,7 @@ const Login = () => {
       if (response?.isSuccess) {
         setLocalStorage('token', response?.token)
         toast.success(response?.message)
-        navigate('/admin/dashboard')
+        navigate('/admin/users')
       } 
     } catch (error) {
       toast.error(error?.message || 'An error occurred')

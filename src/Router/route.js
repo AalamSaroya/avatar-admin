@@ -17,7 +17,7 @@ import { getLocalStorage } from '../utils/LocalStorageUtils';
 
 const LoginProtected = ({ children }) => {
   const admin = getLocalStorage('token');
-  return admin ? <Navigate to="/admin/dashboard" replace /> : children;
+  return admin ? <Navigate to="/admin/users" replace /> : children;
 };
 
 const DashboardProtected = ({ children }) => {

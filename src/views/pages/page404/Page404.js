@@ -22,7 +22,7 @@ const Page404 = () => {
               <p className="text-body-secondary">
                 The page you are looking for was not found.
               </p>
-              <Button variant="primary" onClick={() => navigate("/admin/dashboard")}><FontAwesomeIcon icon={faArrowLeftLong} style={{ marginRight: "10px" }} />Go Back to Dashboard</Button>
+              <Button variant="primary" onClick={() => navigate("/admin/users")}><FontAwesomeIcon icon={faArrowLeftLong} style={{ marginRight: "10px" }} />Go Back to Dashboard</Button>
             </div>
           </CCol>
         </CRow>

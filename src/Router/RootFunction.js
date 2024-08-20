@@ -11,7 +11,7 @@ const RootFunction = () => {
     // Perform redirection based on authentication status
     if (location.pathname === '/admin') {
       if (isAuthenticated) {
-        navigate('/admin/dashboard', { replace: true })
+        navigate('/admin/users', { replace: true })
       } else {
         navigate('/admin/login', { replace: true })
       }
