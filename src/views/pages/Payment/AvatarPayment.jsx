@@ -90,7 +90,7 @@ const AvatarPayment = () => {
   return (
     <>
       <div className="heading-and-search-form">
-        <h2>Users</h2>
+        <h2>Completed Tours</h2>
         <FormSearch
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -103,9 +103,10 @@ const AvatarPayment = () => {
         <Table bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
+              <th>Experience Name</th>
+              <th>Avatar Name</th>
+              <th>Avatar Email</th>
+              <th>Tour Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -113,15 +114,16 @@ const AvatarPayment = () => {
             {userData.length !== 0 ? (
               userData.map((user) => (
                 <tr key={user.id || user._id}>
-                  <td>{user.id || user._id}</td>
-                  <td>{user.userName}</td>
-                  <td>{user.email}</td>
+                  <td>{user.experienceName} , {user.State}</td>
+                  <td>{user.avatarName}</td>
+                  <td>{user.avatarEmail}</td>
+                  <td>Completed</td>
                   <td className="actions">
                     <Button variant="primary" size="sm" onClick={() => viewSingleUser(user.id)}>
                       View Case
                     </Button>
                     <Button variant="danger" size="sm" onClick={() => DeleteUserById(user.id)}>
-                      Pay
+                      Pay to avatar
                     </Button>   
                   </td>
                 </tr>

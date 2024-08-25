@@ -90,7 +90,7 @@ const Dispute = () => {
   return (
     <>
       <div className="heading-and-search-form">
-        <h2>Users</h2>
+        <h2>Experience Cancelled by Users</h2>
         <FormSearch
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
