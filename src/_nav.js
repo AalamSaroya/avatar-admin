@@ -55,6 +55,13 @@ const _nav = [
         icon: <CIcon icon={cibAmazonPay} customClassName="nav-icon" />,
        
       },
+      {
+        component: CNavItem,
+        name: "Dispute",
+        to: "/admin/dispute",
+        icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+       
+      },
   
   
 

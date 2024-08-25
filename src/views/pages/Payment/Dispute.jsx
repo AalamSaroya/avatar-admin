@@ -8,7 +8,7 @@ import FormSearch from '../../../components/form_search/FormSearch'
 import Pagination from '../../../components/pagination_common/Pagination'
 import fetchAllUsers, { deleteUserById, searchUser } from '../../../utils/services/userServices'
 
-const AvatarPayment = () => {
+const Dispute = () => {
   const [userData, setUserData] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
@@ -118,8 +118,8 @@ const AvatarPayment = () => {
                       View Case
                     </Button>
                     <Button variant="danger" size="sm" onClick={() => DeleteUserById(user.id)}>
-                      Pay
-                    </Button>   
+                      Dispute
+                    </Button>
                   </td>
                 </tr>
               ))
@@ -146,4 +146,4 @@ const AvatarPayment = () => {
   )
 }
 
-export default AvatarPayment
+export default Dispute

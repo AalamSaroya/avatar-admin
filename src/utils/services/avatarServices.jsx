@@ -55,6 +55,16 @@ const searchAvatar = async (query) => {
     toast.error(error.response.data.message)
   }
 }
+const getRefunds = async()=>{
+  try{
+    const res = await axiosInstance.get('/refund')
+    return res.data
 
+  }
+  catch(error){
+    console.log(error);
+
+  }
+}
 export default fetchAvatars
-export { fetchAvatarById, searchAvatar, deleteAvatarById }
+export { fetchAvatarById, searchAvatar, deleteAvatarById ,getRefunds}

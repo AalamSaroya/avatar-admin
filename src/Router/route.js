@@ -14,6 +14,7 @@ import ForgotPassword from '../views/pages/forgot_password/ForgotPassword';
 import AvatarPayment from '../views/pages/Payment/AvatarPayment';
 import Refund from '../views/pages/Payment/Refund';
 import Page404 from '../views/pages/page404/Page404';
+import Dispute from '../views/pages/Payment/Dispute';
 import RootFunction from './RootFunction';
 import { getLocalStorage } from '../utils/LocalStorageUtils';
 import Admin from '../views/pages/admin/admin';
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
           {
             path:'avatarpayment',
             element:<AvatarPayment/>
+          },
+          {
+            path:'dispute',
+            element:<Dispute/>
           }
         ],
       },
