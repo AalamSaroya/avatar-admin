@@ -40,7 +40,6 @@ const Requests = () => {
 
     try {
       let res = await updateRequestById(body)
-<<<<<<< HEAD
   
       if (res?.success) {
         if (res.message === 'Request is not accepted.') {
@@ -51,12 +50,6 @@ const Requests = () => {
 
           fetchReqestData()
         }
-=======
-
-      if (res?.success && status===true) {
-        toast.success(res.message)
-        fetchReqestData()
->>>>>>> 52df946a4dba5913fe14b14dc7d76e517e3e1981
       }
       if(res?.success && status===false) {
         toast.error(res.message)
@@ -74,7 +67,6 @@ const Requests = () => {
         <section className="requests">
           <h2>Avatar Requests</h2>
           {requestData.map((request) => {
-<<<<<<< HEAD
             return (
               <div className="requests-list mt-3" key={request._id}>
                 <div className="request d-flex mb-2">
@@ -100,41 +92,6 @@ const Requests = () => {
                     >
                       Reject
                     </Button>
-=======
-         
-            // Only render the request if both userName, email are available, and status is "Requested"
-            if (request.userName && request.email && request.isAvatarApproved
-               ===false) {
-              return (
-                <div className="requests-list mt-3" key={request._id}>
-                  <div className="request d-flex mb-2">
-                    <div className="r-name">
-                      <h6 className="mb-0">{request.userName}</h6>
-                    </div>
-                    <div className="r-email">
-                      <p className="mb-0">{request.email}</p>
-                    </div>
-                    <div className="r-email">
-                      <p className="mb-0">{request.isAvatarApproved}</p>
-                    </div>
-
-                    <div className="r-actions">
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={() => updateRequest(request._id, true)}
-                      >
-                        Accept
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => updateRequest(request._id, false)}
-                      >
-                        Reject
-                      </Button>
-                    </div>
->>>>>>> 52df946a4dba5913fe14b14dc7d76e517e3e1981
                   </div>
                 </div>
               </div>

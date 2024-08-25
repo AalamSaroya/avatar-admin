@@ -111,7 +111,7 @@ const Avatars = () => {
                 </tr>
               </thead>
               <tbody>
-<<<<<<< HEAD
+
                 {avatarData
                   .filter((avatar) => avatar.isAvatarApproved) // Filter avatars with isAvatarApproved == false
                   .map((avatar) => {
@@ -139,7 +139,7 @@ const Avatars = () => {
                       </tr>
                     )
                   })}
-=======
+
                 {filtereddata.map((avatar) => {
                   console.log(avatar)
                   return (
@@ -169,7 +169,7 @@ const Avatars = () => {
                     </tr>
                   )
                 })}
->>>>>>> 52df946a4dba5913fe14b14dc7d76e517e3e1981
+
               </tbody>
             </Table>
           </div>

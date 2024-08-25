@@ -31,10 +31,6 @@ const Login = () => {
 
     try {
       const response = await LoginApi(payload) // Assuming LoginApi sends JSON payload
-<<<<<<< HEAD
-=======
-
->>>>>>> 52df946a4dba5913fe14b14dc7d76e517e3e1981
       if (response?.isSuccess) {
         setLocalStorage('token', response?.token)
         toast.success(response?.message)
