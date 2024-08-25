@@ -66,5 +66,13 @@ const getRefunds = async()=>{
 
   }
 }
+const getDisputes = async()=>{
+  try{
+    const res = await axiosInstance.get('/dispute');
+    return res.data;
+  }catch(error){
+    console.log(error);
+  }
+}
 export default fetchAvatars
-export { fetchAvatarById, searchAvatar, deleteAvatarById ,getRefunds}
+export { fetchAvatarById, searchAvatar, deleteAvatarById ,getRefunds,getDisputes}

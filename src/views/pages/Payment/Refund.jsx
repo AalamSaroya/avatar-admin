@@ -33,9 +33,11 @@ const Refund = () => {
       setLoading(false)
       toast.error('Failed to load dashboard data')
     }
+
   }
   // Handle search form submission
 
+  console.log(userData,'jksjd');
 
   useEffect(() => {
     fetchDashboardData()
@@ -66,7 +68,7 @@ const Refund = () => {
   return (
     <>
       <div className="heading-and-search-form">
-        <h2>Users</h2>
+        <h2>Experiences Cancelled By Avatar</h2>
       
       </div>
 
@@ -74,9 +76,10 @@ const Refund = () => {
         <Table bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
+              <th>Experience Name</th>
+              <th>Avatar Name</th>
+              <th>Avatar Email</th>
+              <th>Amount to Refund</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -84,9 +87,11 @@ const Refund = () => {
             {userData.length !== 0 ? (
               userData.map((user) => (
                 <tr key={user.id || user._id}>
-                  <td>{user.id || user._id}</td>
-                  <td>{user.userName}</td>
-                  <td>{user.email}</td>
+                  <td>{user.experienceName}</td>
+                  <td>{user.avatarName
+                  }</td>
+                  <td>{user.avatarEmail}</td>
+                  <td>{user.amount}</td>
                   <td className="actions">
                     <Button variant="primary" size="sm" onClick={() => viewSingleUser(user.id)}>
                       View Case
