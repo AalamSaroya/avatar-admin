@@ -21,6 +21,8 @@ const Avatars = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
 
+  const filtereddata  = avatarData.filter((avt)=>avt.isAvatarApproved===true);
+  console.log(filtereddata,'jksdjf');
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
@@ -109,6 +111,7 @@ const Avatars = () => {
                 </tr>
               </thead>
               <tbody>
+<<<<<<< HEAD
                 {avatarData
                   .filter((avatar) => avatar.isAvatarApproved) // Filter avatars with isAvatarApproved == false
                   .map((avatar) => {
@@ -136,6 +139,37 @@ const Avatars = () => {
                       </tr>
                     )
                   })}
+=======
+                {filtereddata.map((avatar) => {
+                  console.log(avatar)
+                  return (
+                    <tr key={avatar._id}>
+                      <td>{avatar._id}</td>
+                      <td>{avatar.userName}</td>
+                      <td>{avatar.email}</td>
+                      <td className="actions">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => viewSingleAvatar(avatar._id)}
+                        >
+                          View
+                        </Button>
+                        {/* <Button variant="secondary" size="sm">
+                          Edit
+                        </Button> */}
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => DeleteAvatarById(avatar._id)}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  )
+                })}
+>>>>>>> 52df946a4dba5913fe14b14dc7d76e517e3e1981
               </tbody>
             </Table>
           </div>

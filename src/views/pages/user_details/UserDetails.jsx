@@ -40,14 +40,14 @@ const UserDetails = () => {
               <dd>{user.userName}</dd>
               <dt>Email</dt>
               <dd>{user.email}</dd>
-              <dt>Avatar</dt>
-              <dd className="is-avatar">
+             
+              {/* <dd className="is-avatar">
                 {user.isAvatarApproved ? (
                   <FontAwesomeIcon icon={faCircleCheck} />
                 ) : (
                   <FontAwesomeIcon icon={faTimesCircle} /> // or any cross icon you prefer
                 )}
-              </dd>
+              </dd> */}
             </dl>
           </div>
         </>
