@@ -74,5 +74,14 @@ const getDisputes = async()=>{
     console.log(error);
   }
 }
+
+const getCompletedtours = async()=>{
+  try{
+    const res = await axiosInstance.get('/getCompletedAvatarstours');
+    return res.data;
+  }catch(error){
+    console.log(error);
+  }
+}
 export default fetchAvatars
-export { fetchAvatarById, searchAvatar, deleteAvatarById ,getRefunds,getDisputes}
+export { fetchAvatarById, searchAvatar, deleteAvatarById ,getRefunds,getDisputes,getCompletedtours}

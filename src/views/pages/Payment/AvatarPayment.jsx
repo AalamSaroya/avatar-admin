@@ -7,6 +7,7 @@ import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import Pagination from '../../../components/pagination_common/Pagination'
 import fetchAllUsers, { deleteUserById, searchUser } from '../../../utils/services/userServices'
+import { getCompletedtours } from '../../../utils/services/avatarServices'
 
 const AvatarPayment = () => {
   const [userData, setUserData] = useState([])
@@ -21,7 +22,9 @@ const AvatarPayment = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
-      const response = await fetchAllUsers({ page: currentPage, items_per_page: itemsPerPage })
+      const response = await getCompletedtours()
+      // const response = await fetchAllUsers({ page: currentPage, items_per_page: itemsPerPage })
+
       setLoading(false)
       if (response?.success) {
         console.log(response.data)
