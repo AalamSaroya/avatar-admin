@@ -11,9 +11,14 @@ import Requests from '../views/pages/requests/Requests';
 import Profile from '../views/pages/profile/Profile';
 import Login from '../views/pages/login/Login';
 import ForgotPassword from '../views/pages/forgot_password/ForgotPassword';
+import AvatarPayment from '../views/pages/Payment/AvatarPayment';
+import Refund from '../views/pages/Payment/Refund';
 import Page404 from '../views/pages/page404/Page404';
+import Dispute from '../views/pages/Payment/Dispute';
 import RootFunction from './RootFunction';
 import { getLocalStorage } from '../utils/LocalStorageUtils';
+import Admin from '../views/pages/admin/Admin';
+import Reports from "../views/pages/reports/Reports";
 
 const LoginProtected = ({ children }) => {
   const admin = getLocalStorage('token');
@@ -83,9 +88,30 @@ export const router = createBrowserRouter([
             element: <Requests />,
           },
           {
+            path: 'admin',
+            element: <Admin />,
+          },
+          {
             path: 'profile',
             element: <Profile />,
           },
+          {
+            path: 'refund',
+            element: <Refund />
+
+          },
+          {
+            path: 'avatarpayment',
+            element: <AvatarPayment />
+          },
+          {
+            path: 'dispute',
+            element: <Dispute />
+          },
+          {
+            path: 'reports',
+            element: <Reports />
+          }
         ],
       },
       {

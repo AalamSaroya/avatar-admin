@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilAccountLogout, cilSpeedometer, cilUser, cilStar, cilUserPlus } from '@coreui/icons'
+import { cilAccountLogout, cilSpeedometer, cilUser, cilStar, cilUserPlus, cilMoney, cibAmazonPay, cilReportSlash } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import toast from 'react-hot-toast'
 
@@ -39,7 +39,34 @@ const _nav = [
     to: '/admin/requests',
     icon: <CIcon icon={cilUserPlus} customClassName="nav-icon" />,
   },
-  
+
+
+  {
+    component: CNavItem,
+    name: "Refund",
+    to: "/admin/refund",
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+
+  },
+  {
+    component: CNavItem,
+    name: "AvatarPayment",
+    to: "/admin/avatarpayment",
+    icon: <CIcon icon={cibAmazonPay} customClassName="nav-icon" />,
+
+  },
+  {
+    component: CNavItem,
+    name: "Dispute",
+    to: "/admin/dispute",
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: "Reports",
+    to: "/admin/reports",
+    icon: <CIcon icon={cilReportSlash} customClassName="nav-icon" />,
+  }
 ]
 
 export default _nav

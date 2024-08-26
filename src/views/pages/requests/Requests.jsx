@@ -19,6 +19,7 @@ const Requests = () => {
       const response = await fetchAllRequest({ page: currentPage, items_per_page: itemsPerPage })
       setLoading(false)
       if (response?.success) {
+        console.log(response.data);
         setRequestData(response.data)
         console.log(response.data)
         setTotalPages(Math.ceil(response.total_items / itemsPerPage))
@@ -36,6 +37,7 @@ const Requests = () => {
 
   const updateRequest = async (id, status) => {
     let body = { requestId: id, status: status }
+
     try {
       let res = await updateRequestById(body)
   
@@ -49,6 +51,10 @@ const Requests = () => {
           fetchReqestData()
         }
       }
+      if(res?.success && status===false) {
+        toast.error(res.message)
+      }
+
     } catch (error) {
       toast.error(error.message)
 

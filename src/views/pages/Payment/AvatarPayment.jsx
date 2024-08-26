@@ -1,4 +1,4 @@
-import './Users.css'
+import '../users/Users.css'
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
@@ -7,8 +7,9 @@ import Loader from '../../../components/loader/Loader'
 import FormSearch from '../../../components/form_search/FormSearch'
 import Pagination from '../../../components/pagination_common/Pagination'
 import fetchAllUsers, { deleteUserById, searchUser } from '../../../utils/services/userServices'
+import { getCompletedtours } from '../../../utils/services/avatarServices'
 
-const Users = () => {
+const AvatarPayment = () => {
   const [userData, setUserData] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
@@ -21,7 +22,9 @@ const Users = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true)
-      const response = await fetchAllUsers({ page: currentPage, items_per_page: itemsPerPage })
+      const response = await getCompletedtours()
+      // const response = await fetchAllUsers({ page: currentPage, items_per_page: itemsPerPage })
+
       setLoading(false)
       if (response?.success) {
         console.log(response.data)
@@ -87,7 +90,7 @@ const Users = () => {
   return (
     <>
       <div className="heading-and-search-form">
-        <h2>Users</h2>
+        <h2>Completed Tours</h2>
         <FormSearch
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -100,9 +103,10 @@ const Users = () => {
         <Table bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
+              <th>Experience Name</th>
+              <th>Avatar Name</th>
+              <th>Avatar Email</th>
+              <th>Tour Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -110,16 +114,17 @@ const Users = () => {
             {userData.length !== 0 ? (
               userData.map((user) => (
                 <tr key={user.id || user._id}>
-                  <td>{user.id || user._id}</td>
-                  <td>{user.userName}</td>
-                  <td>{user.email}</td>
+                  <td>{user.experienceName} , {user.State}</td>
+                  <td>{user.avatarName}</td>
+                  <td>{user.avatarEmail}</td>
+                  <td>Completed</td>
                   <td className="actions">
                     <Button variant="primary" size="sm" onClick={() => viewSingleUser(user.id)}>
-                      View
+                      View Case
                     </Button>
                     <Button variant="danger" size="sm" onClick={() => DeleteUserById(user.id)}>
-                      Delete
-                    </Button>
+                      Pay to avatar
+                    </Button>   
                   </td>
                 </tr>
               ))
@@ -146,4 +151,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default AvatarPayment

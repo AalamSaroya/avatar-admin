@@ -1,0 +1,24 @@
+.r-c-image {
+  width: 30%;
+  aspect-ratio: 1;
+}
+
+.r-c-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.r-c-text {
+  width: 70%;
+  padding-left: 10px;
+}
+
+.report-container {
+  border: var(--cui-border-width) var(--cui-border-style) var(--cui-border-color);
+  padding: 5px;
+}
+
+.report-container button {
+  color: #fff !important;
+}

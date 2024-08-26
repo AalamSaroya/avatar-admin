@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet'
-import L from 'leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import fetchAllLocation from '../../utils/services/commonServices'
 
 // COMPONENT: LOCATE CONTROL
@@ -12,7 +11,6 @@ const LocateControl = ({ setCenter }) => {
       try {
         const res = await fetchAllLocation()
         if (res.success && res.data && res.data.length > 0) {
-          // Check if data is valid before using it
           setCenter([res.data[0].lat, res.data[0].lng]) // Update center based on first location
         } else {
           console.log('No data or invalid data received')
@@ -40,9 +38,9 @@ const LocateControl = ({ setCenter }) => {
 
 // COMPONENT: LOCATE AVATARS
 const LocateAvatars = () => {
-  const [center, setCenter] = useState([30.7565665, 76.6398525]) // Default center based on sample data
+  const [center, setCenter] = useState([0, 0]) // Default center before data is loaded
   const [locations, setLocations] = useState([])
-  const radius = 1000 // Radius of the circle (in meters) in which avatars will be shown
+  
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -64,16 +62,6 @@ const LocateAvatars = () => {
     fetchLocations()
   }, [])
 
-  const isMarkerWithinRadius = (position, center, radius) => {
-    const distance = L.latLng(position).distanceTo(L.latLng(center))
-    return distance <= radius
-  }
-
-  const filteredMarkers = locations.filter((location) =>
-    isMarkerWithinRadius([location.lat, location.lng], center, radius),
-  )
-  const circleOptions = { color: 'red', weight: 2 }
-
   return (
     <MapContainer
       center={center}
@@ -85,20 +73,13 @@ const LocateAvatars = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocateControl setCenter={setCenter} />
-      <Circle center={center} radius={radius} pathOptions={circleOptions} />
-      {filteredMarkers.length > 0 ? (
-        filteredMarkers.map((location, idx) => (
-          <Marker key={idx} position={[location.lat, location.lng]}>
-            <Popup>
-              {location.userName}<br />{location.email}
-            </Popup>
-          </Marker>
-        ))
-      ) : (
-        <Marker position={center}>
-          <Popup>No users found in this radius</Popup>
+      {locations.map((location, idx) => (
+        <Marker key={idx} position={[location.lat, location.lng]}>
+          <Popup>
+            {location.userName}<br />{location.email}
+          </Popup>
         </Marker>
-      )}
+      ))}
     </MapContainer>
   )
 }

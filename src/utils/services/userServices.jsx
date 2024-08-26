@@ -56,5 +56,7 @@ const searchUser = async (query) => {
     toast.error(error.response.message)
   }
 }
+
+
 export default fetchAllUsers
 export { fetchUserById, deleteUserById, searchUser }
