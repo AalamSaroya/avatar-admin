@@ -18,6 +18,7 @@ import Dispute from '../views/pages/Payment/Dispute';
 import RootFunction from './RootFunction';
 import { getLocalStorage } from '../utils/LocalStorageUtils';
 import Admin from '../views/pages/admin/Admin';
+import Reports from "../views/pages/reports/Reports";
 
 const LoginProtected = ({ children }) => {
   const admin = getLocalStorage('token');
@@ -88,24 +89,28 @@ export const router = createBrowserRouter([
           },
           {
             path: 'admin',
-            element: <Admin/>,
+            element: <Admin />,
           },
           {
             path: 'profile',
             element: <Profile />,
           },
           {
-            path:'refund',
-            element:<Refund/>
+            path: 'refund',
+            element: <Refund />
 
           },
           {
-            path:'avatarpayment',
-            element:<AvatarPayment/>
+            path: 'avatarpayment',
+            element: <AvatarPayment />
           },
           {
-            path:'dispute',
-            element:<Dispute/>
+            path: 'dispute',
+            element: <Dispute />
+          },
+          {
+            path: 'reports',
+            element: <Reports />
           }
         ],
       },
