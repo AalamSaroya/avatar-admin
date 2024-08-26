@@ -17,7 +17,7 @@ import Page404 from '../views/pages/page404/Page404';
 import Dispute from '../views/pages/Payment/Dispute';
 import RootFunction from './RootFunction';
 import { getLocalStorage } from '../utils/LocalStorageUtils';
-import Admin from '../views/pages/admin/admin';
+import Admin from '../views/pages/admin/Admin';
 
 const LoginProtected = ({ children }) => {
   const admin = getLocalStorage('token');
